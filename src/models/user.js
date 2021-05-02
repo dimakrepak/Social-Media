@@ -4,21 +4,28 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const userSchema = mongoose.Schema({
-    username: { type: String, required: true, },
-    password: { type: String, required: true },
+    username: { type: String, required: true, min: 2, max: 20 },
+    password: { type: String, required: true, min: 6 },
     email: {
-        type: String,
-        required: true,
-        unique: true,
+        type: String, required: true, unique: true,
         validate(value) {
             if (!validator.isEmail(value)) { throw new Error('Email is invalid') };
         }
     },
+    profilePicture: { type: String, default: "" },
+    followers: { type: Array, default: [] },
+    following: { type: Array, default: [] },
+    isAdmin: { type: Boolean, default: false },
+    desc: { type: String, max: 100 },
+    city: { type: String, max: 50 },
+    from: { type: String, max: 50 },
+    relationship: { type: Number, num: [1, 2, 3] },
     tokens: [{
         token: { type: String, required: true }
     }]
-
-});
+},
+    { timestamps: true }
+);
 userSchema.methods.generateAuthToken = async function () {
     const user = this
     const token = jwt.sign({ _id: user._id.toString() }, 'tokeninaction')

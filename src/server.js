@@ -3,13 +3,20 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const app = express();
 const path = require('path');
-const appRouter = require('./routes/app.routes')
+const http = require('http');
+const dotenv = require("dotenv");
 const port = process.env.PORT || 8000;
-const uri = "mongodb+srv://dimkre:1234@bankdb.rtm4i.mongodb.net/social-mediaDB?retryWrites=true&w=majority";
+const socketio = require('socket.io');
+const appRouter = require('./routes/app.routes');
+dotenv.config()
 
+//middleware
 app.use(cors());
 app.use(express.json());
 app.use('/api', appRouter);
+
+const server = http.createServer(app);
+const io = socketio(server);
 
 if (process.env.NODE_ENV === 'production') {
   // Exprees will serve up production assets
@@ -20,8 +27,11 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
+
+io.on('connection', () => console.log('new websocket connected'))
+
 //Connection to db with mongoose
-mongoose.connect(uri, {
+mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
@@ -30,4 +40,4 @@ mongoose.connect(uri, {
   .then(() => console.log('database connect'))
   .catch(err => console.log(err))
 
-app.listen(port, () => console.log(`application start at ${port}`));
+server.listen(port, () => console.log(`application start at ${port}`));
