@@ -95,12 +95,14 @@ const unfollowUser = async (req, res) => {
                 res.status(200).send('User unfollowed');
             }
         } catch (err) {
-            res.status(500).send(err)
+            res.status(500).json(err)
         }
     } else {
         res.status(403).send('You cant unfollow yourself')
     }
 }
+
+
 module.exports = {
     createUser,
     loginUser,
@@ -109,6 +111,5 @@ module.exports = {
     deleteUser,
     getUserMe,
     followUser,
-    unfollowUser
-
+    unfollowUser,
 }

@@ -14,10 +14,13 @@ router
     .put('/users/:id/unfollow', auth, userController.unfollowUser)
     .delete('/users/me', auth, userController.deleteUser)
 
-
     .post('/posts/create', auth, postController.createPost)
-    .post('/posts/comments/:id', auth, postController.createComment)
-    .delete('/posts/delete/:id', auth, postController.deletePost)
+    .put('/posts/:id/like', auth, postController.likePost)
+    .put('/posts/:id/comment', auth, postController.createComment)
+    .put('/posts/:id/update', auth, postController.updatePost)
+    .delete('/posts/:id/delete', auth, postController.deletePost)
     .get('/posts', postController.getAllPosts)
+    .get('/posts/:id', postController.getPost)
+    .get('/posts/timeline/all',auth, postController.getUserTimeline)
 
 module.exports = router;
