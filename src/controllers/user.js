@@ -52,17 +52,63 @@ const deleteUser = async (req, res) => {
         res.status(500).send()
     }
 }
+const getUserMe = async (req, res) => {
+    try {
+        res.send(req.user)
+    } catch (err) {
+        res.status(500).send()
+    }
+}
 const followUser = async (req, res) => {
-
+    const currentUser = req.user
+    if (currentUser._id.toString() !== req.params.id) {
+        try {
+            const user = await userModel.findById(req.params.id)
+            if (user.followers.includes(currentUser._id)) {
+                res.status(403).send('Already follow this user')
+            } else {
+                user.followers.push(currentUser._id)
+                currentUser.following.push(user._id)
+                await user.save()
+                await currentUser.save()
+                res.status(200).send('User has been followed');
+            }
+        } catch (err) {
+            res.status(500).send(err)
+        }
+    } else {
+        res.status(403).send('You cant follow yourself')
+    }
 }
 const unfollowUser = async (req, res) => {
-
+    const currentUser = req.user
+    if (currentUser._id.toString() !== req.params.id) {
+        try {
+            const user = await userModel.findById(req.params.id)
+            if (!user.followers.includes(currentUser._id)) {
+                res.status(403).send('Already unfollowed this user')
+            } else {
+                user.followers = user.followers.filter((id) => id != currentUser._id.toString())
+                currentUser.following = currentUser.following.filter((id) => id != user._id.toString())
+                await user.save()
+                await currentUser.save()
+                res.status(200).send('User unfollowed');
+            }
+        } catch (err) {
+            res.status(500).send(err)
+        }
+    } else {
+        res.status(403).send('You cant unfollow yourself')
+    }
 }
 module.exports = {
     createUser,
     loginUser,
     logoutUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getUserMe,
+    followUser,
+    unfollowUser
 
 }

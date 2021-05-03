@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const postModel = require('../models/post');
 
 const userSchema = mongoose.Schema({
     username: { type: String, required: true, min: 2, max: 20 },
@@ -26,13 +27,22 @@ const userSchema = mongoose.Schema({
 },
     { timestamps: true }
 );
+//Delete password and tokens from JSON
+userSchema.methods.toJSON = function () {
+    const user = this;
+    const userObj = user.toObject();
+    delete userObj.password;
+    delete userObj.tokens;
+    return userObj;
+};
+//Generate Token
 userSchema.methods.generateAuthToken = async function () {
     const user = this
     const token = jwt.sign({ _id: user._id.toString() }, 'tokeninaction')
     user.tokens = user.tokens.concat({ token })
     await user.save()
     return token
-}
+};
 //Check if email/password was found in user collection if yes return user else throw error
 userSchema.statics.findByCredentials = async (email, password) => {
     const user = await userModel.findOne({ email })
@@ -44,11 +54,11 @@ userSchema.statics.findByCredentials = async (email, password) => {
         throw new Error('Unable to login')
     }
     return user
-}
-//Delete user tasks when user is removed
+};
+//Delete users posts when user is removed
 userSchema.pre('remove', async function (next) {
     const user = this
-    await transModel.deleteMany({ owner: user._id })
+    await postModel.deleteMany({ owner: user._id })
     next()
 })
 
