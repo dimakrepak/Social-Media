@@ -1,0 +1,7 @@
+.feed-container{
+    flex: 2.5;
+    margin-top: 50px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}

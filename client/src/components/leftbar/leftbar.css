@@ -1,0 +1,19 @@
+.leftbar-container {
+  flex: 1;
+  height: calc(100vh - 100px);
+  background-color: rgb(47, 47, 47);
+  margin-top: 50px;
+  border-top-right-radius: 5px;
+}
+.leftbar__list{
+    margin-top:10px;
+}
+.leftbar__list-title {
+  display: flex;
+  align-items: center;
+  background-color: rgb(67, 67, 67);
+  width: 100%;
+  height: 30px;
+  color: rgb(255, 255, 255);
+  padding-left: 5px;
+}

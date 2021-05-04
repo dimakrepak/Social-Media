@@ -1,17 +1,12 @@
-import React from 'react'
 import './App.css';
-import { Route } from 'react-router';
-import User from './components/user.component';
-import { BrowserRouter } from 'react-router-dom';
+import Home from './pages/Home';
+import { Person } from '@material-ui/icons';
 
 function App() {
 
   return (
     <div>
-      <BrowserRouter>
-        <Route exact path='/' component={User} />
-      </BrowserRouter>
-
+      <Home />
     </div>
   );
 }
