@@ -6,7 +6,7 @@ const path = require('path');
 const http = require('http');
 const dotenv = require("dotenv");
 const port = process.env.PORT || 8000;
-const socketio = require('socket.io');
+// const socketio = require('socket.io');
 const appRouter = require('./routes/app.routes');
 dotenv.config()
 
@@ -15,8 +15,8 @@ app.use(cors());
 app.use(express.json());
 app.use('/api', appRouter);
 
-const server = http.createServer(app);
-const io = socketio(server);
+// const server = http.createServer(app);
+// const io = socketio(server);
 
 if (process.env.NODE_ENV === 'production') {
   // Exprees will serve up production assets
@@ -28,7 +28,7 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-io.on('connection', () => console.log('new websocket connected'))
+// io.on('connection', () => console.log('new websocket connected'))
 
 //Connection to db with mongoose
 mongoose.connect(process.env.MONGO_URL, {
@@ -40,4 +40,4 @@ mongoose.connect(process.env.MONGO_URL, {
   .then(() => console.log('database connect'))
   .catch(err => console.log(err))
 
-server.listen(port, () => console.log(`application start at ${port}`));
+app.listen(port, () => console.log(`application start at ${port}`));

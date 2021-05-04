@@ -29,7 +29,7 @@ const getAllPosts = async (req, res) => {
         const posts = await postModel.find()
         res.send(posts)
     } catch (err) {
-        res.status(500).send()
+        res.status(500).send(err + '')
     }
 }
 const likePost = async (req, res) => {
