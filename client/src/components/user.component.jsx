@@ -8,7 +8,7 @@ function User() {
 
   const getUser = async () =>{
     const data = await axios.get('api/posts')
-    setUser(data.data)
+    setUser(data)
   }
 
   useEffect(() => {
@@ -16,7 +16,7 @@ function User() {
   }, [])
   return (
     <div className="App">
-    {console.log(user)}
+    <p>asdsadsad</p>
     </div>
   );
 }
