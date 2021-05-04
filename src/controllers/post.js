@@ -102,8 +102,6 @@ const getUserTimeline = async (req, res) => {
                 return postModel.find({ owner: usersId });
             })
         )
-
-        console.log(...currentUserFollowingPosts)
         const timelinePosts = currentUserPosts.concat(...currentUserFollowingPosts)
         res.status(200).send(timelinePosts)
     } catch (err) {
