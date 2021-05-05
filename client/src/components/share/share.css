@@ -1,9 +1,60 @@
 .share-container {
   width: 80%;
-  height: 200px;
+  height: 150px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   background-color: rgb(255, 255, 255);
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
     rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  padding: 25px;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+}
+.share__top{
+  width:100%;
+  display: flex;
+}
+.share-input {
+  width: 80%;
+  margin-left: 10px;
+  height: 30px;
+  border-bottom: 1px rgb(0, 0, 0, 0.5) solid;
+}
+.share-input__input {
+  width: 100%;
+  border: none;
+  outline: none;
+}
+.share-option {
+  display: flex;
+  font-size: 14px;
+  align-items: center;
+  margin-top: 10px;
+  cursor: pointer;
+}
+.share__bottom {
+width: 100%;
+display: flex;
+justify-content:space-between;
+}
+.share-button{
+  width:100px;
+  height:40px;
+  border: 1px rgb(0, 0, 0, 0.1) solid;
+  border-radius: 40px;
+  cursor: pointer;
+  background-color:rgb(48, 192, 55);
+  color:rgb(255, 255, 255);
+  font-weight:500;
+  font-size:15px;
+}
+.share-button:hover{
+  background-color:rgb(42, 158, 48);
+}
+.share-profile-picture{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
 }

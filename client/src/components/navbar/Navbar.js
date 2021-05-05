@@ -4,9 +4,7 @@ export default function Navbar() {
     return (
         <div className="navbar-container">
             <div className="navbar__left">
-                <span className="navbar-logo">SOCIALMEDIA</span>
-                <span className="navbar-link">Homepage</span>
-                <span className="navbar-link">Timeline</span>
+                <span className="navbar-logo">SOCIAL.ME {'</>'}</span>
             </div>
             <div className="navbar__center">
                 <div className="navbar-searchbar">
@@ -15,6 +13,7 @@ export default function Navbar() {
                 </div>
             </div>
             <div className="navbar__right">
+                <span className="navbar-link">Homepage</span>
                 <div className="navbar-icons">
                     <div className="navbar-icons__icon">
                         <Person />
@@ -26,7 +25,10 @@ export default function Navbar() {
                         <Forum />
                     </div>
                 </div>
-                <img src="/assets/profile/pic1.jpeg" alt="" className="navbar-profile-picture" />
+                <div className="navbar-profile">
+                <img src="/assets/profile/pic1.jpeg" alt="" className="navbar-profile__picture" />
+                <span className="navbar-link">Profile</span>
+                </div>
             </div>
         </div>
     )

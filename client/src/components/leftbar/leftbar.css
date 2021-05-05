@@ -4,9 +4,12 @@
   background-color: rgb(47, 47, 47);
   margin-top: 50px;
   border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  position: sticky;
+  left: 0px;
 }
-.leftbar__list{
-    margin-top:10px;
+.leftbar__list {
+  margin-top: 20px;
 }
 .leftbar__list-title {
   display: flex;
