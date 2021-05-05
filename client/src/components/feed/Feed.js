@@ -5,6 +5,7 @@ export default function Feed() {
     return (
         <div className="feed-container">
             <Share />
+            posts
         </div>
     )
 }
