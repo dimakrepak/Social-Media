@@ -11,8 +11,8 @@
   flex-flow: column;
   justify-content: space-between;
 }
-.share__top{
-  width:100%;
+.share__top {
+  width: 100%;
   display: flex;
 }
 .share-input {
@@ -34,25 +34,25 @@
   cursor: pointer;
 }
 .share__bottom {
-width: 100%;
-display: flex;
-justify-content:space-between;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
-.share-button{
-  width:100px;
-  height:40px;
+.share-button {
+  width: 100px;
+  height: 40px;
   border: 1px rgb(0, 0, 0, 0.1) solid;
   border-radius: 40px;
   cursor: pointer;
-  background-color:rgb(48, 192, 55);
-  color:rgb(255, 255, 255);
-  font-weight:500;
-  font-size:15px;
+  background-color: rgb(48, 192, 55);
+  color: rgb(255, 255, 255);
+  font-weight: 500;
+  font-size: 15px;
 }
-.share-button:hover{
-  background-color:rgb(42, 158, 48);
+.share-button:hover {
+  background-color: rgb(0, 181, 1);
 }
-.share-profile-picture{
+.share-profile-picture {
   width: 50px;
   height: 50px;
   border-radius: 50%;
