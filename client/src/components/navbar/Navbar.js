@@ -1,5 +1,6 @@
 import './navbar.css'
 import { Person, Search, Notifications, Forum } from '@material-ui/icons'
+import { Link } from "react-router-dom"
 export default function Navbar() {
     return (
         <div className="navbar-container">
@@ -25,10 +26,12 @@ export default function Navbar() {
                         <Forum />
                     </div>
                 </div>
-                <div className="navbar-profile">
-                <img src="/assets/profile/pic1.jpeg" alt="" className="navbar-profile__picture" />
-                <span className="navbar-link">Profile</span>
-                </div>
+                <Link className="router-link" to={`profile`}>
+                    <div className="navbar-profile">
+                        <img src="/assets/profile/pic1.jpeg" alt="" className="navbar-profile__picture" />
+                        <span className="navbar-link">Profile</span>
+                    </div>
+                </Link>
             </div>
         </div>
     )

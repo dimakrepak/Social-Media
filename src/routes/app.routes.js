@@ -9,10 +9,12 @@ router
     .post('/login', userController.loginUser)
     .post('/logout', auth, userController.logoutUser)
     .get('/users/me', auth, userController.getUserMe)
+    .get('/user/:id', userController.getUser)
     .put('/users/me', auth, userController.updateUser)
     .put('/users/:id/follow', auth, userController.followUser)
     .put('/users/:id/unfollow', auth, userController.unfollowUser)
     .delete('/users/me', auth, userController.deleteUser)
+
 
     .post('/posts/create', auth, postController.createPost)
     .put('/posts/:id/like', auth, postController.likePost)
@@ -20,7 +22,8 @@ router
     .put('/posts/:id/update', auth, postController.updatePost)
     .delete('/posts/:id/delete', auth, postController.deletePost)
     .get('/posts', postController.getAllPosts)
+    .get('/posts/user/:id', postController.getUserPosts)
     .get('/posts/:id', postController.getPost)
-    .get('/posts/timeline/all',auth, postController.getUserTimeline)
+    .get('/posts/timeline/me', auth, postController.getUserTimeline)
 
 module.exports = router;

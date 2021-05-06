@@ -1,17 +1,36 @@
 import './post.css'
+import { useEffect, useState } from 'react';
 import { DeleteOutline, ThumbUp } from "@material-ui/icons"
-import { format } from 'timeago.js'
+import { format } from "timeago.js"
+import { Link } from "react-router-dom"
+import axios from 'axios'
 
 export default function Post({ post }) {
+    const [user, setUser] = useState({})
+
+    const fetchUsers = async () => {
+        try {
+            const res = await axios.get(`/api/user/${post.owner}`);
+            console.log(res.data);
+            setUser(res.data)
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    useEffect(() => {
+        fetchUsers();
+    }, [])
     return (
         <div className="post">
             <div className="post-wrapper">
                 <div className="post__top">
                     <div className="post__top-left">
-                        <img className="post-profile-picture"
-                            src={post.owner.avatar || '/assets/profile/noavatar.png'}
-                            alt=''
-                        />
+                        <Link className="router-link" to={`profile/${user._id}`}>
+                            <img className="post-profile-picture"
+                                src={user.profilePicture || '/assets/profile/noavatar.png'}
+                                alt=''
+                            />
+                        </Link>
                         <span className="post-username">{post.username}</span>
                         <span className="post-date">{format(post.createdAt)}</span>
                     </div>

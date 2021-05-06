@@ -108,6 +108,14 @@ const getUserTimeline = async (req, res) => {
         res.status(500).send(err + "")
     }
 }
+const getUserPosts = async (req, res) => {
+    try {
+        const posts = await postModel.find({ owner: req.params.id })
+        res.status(200).send(posts)
+    } catch (err) {
+        res.status(500).json(err)
+    }
+}
 module.exports = {
     getPost,
     likePost,
@@ -115,6 +123,7 @@ module.exports = {
     deletePost,
     updatePost,
     getAllPosts,
+    getUserPosts,
     createComment,
     getUserTimeline
 }
