@@ -6,7 +6,8 @@
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   position: sticky;
-  left: 0px;
+  top: 70px;
+
 }
 .leftbar__list {
   margin-top: 20px;
