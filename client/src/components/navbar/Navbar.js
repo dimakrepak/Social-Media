@@ -1,7 +1,11 @@
 import './navbar.css'
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext'
 import { Person, Search, Notifications, Forum } from '@material-ui/icons'
 import { Link } from "react-router-dom"
 export default function Navbar() {
+    const { user } = useContext(AuthContext);
+
     return (
         <div className="navbar-container">
             <div className="navbar__left">
@@ -26,9 +30,13 @@ export default function Navbar() {
                         <Forum />
                     </div>
                 </div>
-                <Link className="router-link" to={`profile`}>
+                <Link className="router-link" to={`profile/me`}>
                     <div className="navbar-profile">
-                        <img src="/assets/profile/pic1.jpeg" alt="" className="navbar-profile__picture" />
+                        <img
+                            src={user.profilePicture ? user.profilePicture : '/assets/profile/noavatar.png'}
+                            alt=""
+                            className="navbar-profile__picture"
+                        />
                         <span className="navbar-link">Profile</span>
                     </div>
                 </Link>

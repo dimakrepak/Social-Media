@@ -60,7 +60,6 @@ export default function Login() {
                     <button className="create-button" disabled={isFetching}>Create New Account</button>
                 </div>
             </div>
-
         </div>
     )
 }

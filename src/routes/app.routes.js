@@ -23,7 +23,8 @@ router
     .delete('/posts/:id/delete', auth, postController.deletePost)
     .get('/posts', postController.getAllPosts)
     .get('/posts/user/:id', postController.getUserPosts)
-    .get('/posts/:id', postController.getPost)
+    .get('/post/:id', postController.getPost)
+    .get('/posts/me', auth, postController.getCurrentUserPosts)
     .get('/posts/timeline/me', auth, postController.getUserTimeline)
 
 module.exports = router;

@@ -15,10 +15,12 @@ function App() {
       <Switch>
         <Route exact path="/">
           {user ? <Home /> : <Login />}
+          {/* <Home /> */}
         </Route>
 
         <Route path="/login">
           {user ? <Redirect to="/" /> : <Login />}
+          {/* <Login /> */}
         </Route>
 
         <Route path="/register">

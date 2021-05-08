@@ -14,8 +14,14 @@ export default function Feed({ id }) {
                     'Auth': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDkwMzkxMWQ5NzQ0YWQxM2M1NTEwZTciLCJpYXQiOjE2MjAwNjQ1Mjl9.foE4UJf9wfNlTrUpRrkX8erczdyxygHj4dJ2u7ifca4`
                 }
             })
-                :
-                await axios.get(`/api/posts/user/${id}`);
+                : id === 'me' ?
+                    await axios.get(`/api/posts/${id}`, {
+                        headers: {
+                            'Auth': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDkwMzkxMWQ5NzQ0YWQxM2M1NTEwZTciLCJpYXQiOjE2MjA1MTAxMTB9.l7LQv1H2cKdcn_o1JvqeqI1xFLHgurF4cbr_6RaKCKo`
+                        }
+                    })
+                    :
+                    await axios.get(`/api/posts/user/${id}`);
             console.log(res.data);
             setPosts(res.data)
         } catch (err) {
