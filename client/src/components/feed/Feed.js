@@ -24,7 +24,7 @@ export default function Feed({ id }) {
     }
     useEffect(() => {
         fetchPosts();
-    }, [])
+    }, [id])
     return (
         <div className="feed-container">
             <Share />

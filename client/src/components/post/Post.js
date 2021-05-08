@@ -10,7 +10,7 @@ export default function Post({ post }) {
 
     const fetchUsers = async () => {
         try {
-            const res = await axios.get(`/api/user/${post.owner}`);
+            const res = await axios.get(`/api/user?id=${post.owner}`);
             console.log(res.data);
             setUser(res.data)
         } catch (err) {
@@ -19,7 +19,7 @@ export default function Post({ post }) {
     }
     useEffect(() => {
         fetchUsers();
-    }, [])
+    }, [post.owner])
     return (
         <div className="post">
             <div className="post-wrapper">

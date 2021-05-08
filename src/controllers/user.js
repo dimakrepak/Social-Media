@@ -102,10 +102,15 @@ const unfollowUser = async (req, res) => {
     }
 }
 const getUser = async (req, res) => {
+    const id = req.query.id;
+    const username = req.query.username;
     try {
-        const user = await userModel.findById(req.params.id)
+        const user = id ?
+            await userModel.findById(id)
+            :
+            await userModel.findOne({ username })
         res.status(200).json(user);
-    }catch (err) {
+    } catch (err) {
         res.status(500).json(err)
     }
 }

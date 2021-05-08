@@ -9,7 +9,7 @@ router
     .post('/login', userController.loginUser)
     .post('/logout', auth, userController.logoutUser)
     .get('/users/me', auth, userController.getUserMe)
-    .get('/user/:id', userController.getUser)
+    .get('/user', userController.getUser)
     .put('/users/me', auth, userController.updateUser)
     .put('/users/:id/follow', auth, userController.followUser)
     .put('/users/:id/unfollow', auth, userController.unfollowUser)
