@@ -21,11 +21,6 @@
   cursor: pointer;
   color: rgb(82, 171, 250);
 }
-.navbar-link {
-  padding: 2.5px;
-  cursor: pointer;
-  font-size: 14px;
-}
 .navbar__center {
   flex: 2;
 }
@@ -79,6 +74,11 @@
   background-color: rgb(231, 243, 255);
   font-weight: 400;
   color: rgb(6, 139, 255);
+}
+.navbar-link {
+  padding: 3.5px;
+  cursor: pointer;
+  font-size: 12px;
 }
 .navbar-profile__picture {
   width: 35px;

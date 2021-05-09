@@ -1,12 +1,14 @@
-import './post.css'
-import { useEffect, useState } from 'react';
-import { DeleteOutline, ThumbUp } from "@material-ui/icons"
-import { format } from "timeago.js"
-import { Link } from "react-router-dom"
-import axios from 'axios'
+import './post.css';
+import { useEffect, useState, useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
+import { DeleteOutline, ThumbUp } from "@material-ui/icons";
+import { format } from "timeago.js";
+import { Link } from "react-router-dom";
+import axios from 'axios';
 
 export default function Post({ post }) {
-    const [user, setUser] = useState({})
+    const { currentUser } = useContext(AuthContext);
+    const [user, setUser] = useState({});
 
     const fetchUsers = async () => {
         try {
@@ -25,7 +27,7 @@ export default function Post({ post }) {
             <div className="post-wrapper">
                 <div className="post__top">
                     <div className="post__top-left">
-                        <Link className="router-link" to={`profile/${user._id}`}>
+                        <Link className="router-link" to={currentUser.user._id === post.owner? `profile/me` : `profile/${post.owner}`}>
                             <img className="post-profile-picture"
                                 src={user.profilePicture || '/assets/profile/noavatar.png'}
                                 alt=''
@@ -35,7 +37,7 @@ export default function Post({ post }) {
                         <span className="post-date">{format(post.createdAt)}</span>
                     </div>
                     <div className="post__top-right">
-                        <DeleteOutline className="post-icon" />
+                        {currentUser.user._id === post.owner ? <DeleteOutline className="post-icon" /> : ''}
                     </div>
                 </div>
                 <div className="post__center">

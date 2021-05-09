@@ -1,23 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 import Post from '../post/Post';
 import Share from '../share/Share';
 import './feed.css';
 import axios from 'axios'
 
 export default function Feed({ id }) {
-    const [posts, setPosts] = useState([])
+    const [posts, setPosts] = useState([]);
+    const { currentUser } = useContext(AuthContext);
 
     const fetchPosts = async () => {
         try {
             const res = !id ? await axios.get(`/api/posts/timeline/me`, {
                 headers: {
-                    'Auth': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDkwMzkxMWQ5NzQ0YWQxM2M1NTEwZTciLCJpYXQiOjE2MjAwNjQ1Mjl9.foE4UJf9wfNlTrUpRrkX8erczdyxygHj4dJ2u7ifca4`
+                    'Auth': `Bearer ${currentUser.token}`
                 }
             })
                 : id === 'me' ?
                     await axios.get(`/api/posts/${id}`, {
                         headers: {
-                            'Auth': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDkwMzkxMWQ5NzQ0YWQxM2M1NTEwZTciLCJpYXQiOjE2MjA1MTAxMTB9.l7LQv1H2cKdcn_o1JvqeqI1xFLHgurF4cbr_6RaKCKo`
+                            'Auth': `Bearer ${currentUser.token}`
                         }
                     })
                     :
