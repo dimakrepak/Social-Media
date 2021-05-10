@@ -1,7 +1,7 @@
 import './navbar.css'
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext'
-import { Person, Search, Notifications, Forum } from '@material-ui/icons'
+import { Person, Search, Notifications, Forum, Dns } from '@material-ui/icons'
 import { Link } from "react-router-dom"
 export default function Navbar() {
     const { currentUser } = useContext(AuthContext);
@@ -18,7 +18,7 @@ export default function Navbar() {
                 </div>
             </div>
             <div className="navbar__right">
-                <span className="navbar-link">Homepage</span>
+                <Dns className="navbar-icons__icon" />
                 <div className="navbar-icons">
                     <div className="navbar-icons__icon">
                         <Person />

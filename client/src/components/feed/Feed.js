@@ -32,7 +32,7 @@ export default function Feed({ id }) {
     }
     useEffect(() => {
         fetchPosts();
-    }, [id])
+    }, [id, currentUser.token])
     return (
         <div className="feed-container">
             <Share />

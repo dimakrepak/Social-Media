@@ -15,7 +15,6 @@ router
     .put('/users/:id/unfollow', auth, userController.unfollowUser)
     .delete('/users/me', auth, userController.deleteUser)
 
-
     .post('/posts/create', auth, postController.createPost)
     .put('/posts/:id/like', auth, postController.likePost)
     .put('/posts/:id/comment', auth, postController.createComment)
