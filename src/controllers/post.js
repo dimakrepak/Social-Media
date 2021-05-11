@@ -94,7 +94,7 @@ const getPost = async (req, res) => {
 }
 const getCurrentUserPosts = async (req, res) => {
     try {
-        const posts = await postModel.find({ owner: req.user._id })
+        const posts = await postModel.find({ owner: req.user._id }).sort({ createdAt: -1 })
         res.status(200).send(posts)
     } catch (err) {
         res.status(500).send(err + "")
@@ -111,14 +111,14 @@ const getUserTimeline = async (req, res) => {
             })
         )
         const timelinePosts = currentUserPosts.concat(...currentUserFollowingPosts)
-        res.status(200).send(timelinePosts)
+        res.status(200).send(timelinePosts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)))
     } catch (err) {
         res.status(500).send(err + "")
     }
 }
 const getUserPosts = async (req, res) => {
     try {
-        const posts = await postModel.find({ owner: req.params.id })
+        const posts = await postModel.find({ owner: req.params.id }).sort({ createdAt: -1 })
         res.status(200).send(posts)
     } catch (err) {
         res.status(500).json(err)
