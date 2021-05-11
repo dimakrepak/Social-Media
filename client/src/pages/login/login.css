@@ -16,7 +16,7 @@
 }
 .login-box {
   width: 90%;
-  height: 60%;
+  height: 55%;
   padding: 15px;
   display: flex;
   background-color: #fff;
@@ -68,7 +68,7 @@
   cursor: not-allowed;
 }
 .login-forget {
-  margin-top: 5px;
+  margin: 5px 0;
   color: rgb(53, 147, 255);
   cursor: pointer;
 }

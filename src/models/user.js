@@ -5,8 +5,8 @@ const jwt = require('jsonwebtoken');
 const postModel = require('../models/post');
 
 const userSchema = mongoose.Schema({
-    username: { type: String, required: true, min: 2, max: 20 },
-    password: { type: String, required: true, min: 6 },
+    username: { type: String, required: true, minlength: 2, maxlength: 20, unique: true },
+    password: { type: String, required: true, minlength: 6 },
     email: {
         type: String, required: true, unique: true,
         validate(value) {
