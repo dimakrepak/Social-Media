@@ -1,30 +1,42 @@
 import './share.css'
 import { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { PhotoLibrary } from "@material-ui/icons";
+import { PhotoLibrary, RedeemRounded } from "@material-ui/icons";
 import axios from 'axios'
 
 export default function Share() {
     const { currentUser } = useContext(AuthContext);
     const [desc, setDesc] = useState('');
-    const [file, setFile] = useState(null)
+    const [file, setFile] = useState('');
+    const [imgStr, setImgStr] = useState('');
 
-    const handleShareClick = async () => {
-        try {
-            await axios.post(`/api/posts/create`, {
-                body: desc,
-                img: file
-            },
-                {
-                    headers: {
-                        'Auth': `Bearer ${currentUser.token}`
-                    }
-                }
-            )
-        } catch (err) {
-            console.log(err);
+    useEffect(() => {
+        if (file) {
+            const reader = new FileReader();
+            console.log(file);
+            reader.readAsDataURL(file)
+            reader.onloadend = () => {
+                setImgStr(reader.result)
+            }
         }
+    }, [file])
+    const handleShareClick = async () => {
+        const newPost = {
+            body: desc,
+        }
+        if (imgStr) {
+            newPost.img = imgStr
+            console.log(newPost);
+        }
+        try {
+            await axios.post("api/posts/create", newPost, {
+                headers: {
+                    'Auth': `Bearer ${currentUser.token}`
+                }
+            });
+        } catch (err) { }
         console.log('click');
+        setImgStr('');
     }
 
 

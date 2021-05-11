@@ -124,10 +124,19 @@ const getUserPosts = async (req, res) => {
         res.status(500).json(err)
     }
 }
+// const uploadFile = async (req, res) => {
+//     try {
+//         res.status(200).send(req.file.buffer)
+//     } catch (err) {
+//         res.status(500).json(err)
+//     }
+// }
+
 module.exports = {
     getPost,
     likePost,
     createPost,
+    // uploadFile,
     deletePost,
     updatePost,
     getAllPosts,

@@ -4,10 +4,17 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+*:visited,
+:hover,
+:active,
+:focus {
+  outline: 0;
+  outline: none;
+}
 body {
   background-color: rgb(240, 242, 245);
 }
 .router-link {
   text-decoration: none;
-  color:black;
+  color: black;
 }

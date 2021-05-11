@@ -39,14 +39,15 @@ export default function Post({ post }) {
     }, [post.likes, currentUser._id])
 
     const handleLikeClick = async () => {
+        setLikes(isLiked ? likes - 1 : likes + 1);
+        setIsLiked(!isLiked);
         try {
             await axios.put(`/api/posts/${post._id}/like`, {}, {
                 headers: {
                     'Auth': `Bearer ${currentUser.token}`
                 }
             })
-            setIsLiked(!isLiked);
-            setLikes(isLiked ? likes - 1 : likes + 1);
+            console.log(`${post._id} liked`);
         } catch (err) {
             console.log(err)
         }
@@ -72,7 +73,7 @@ export default function Post({ post }) {
                 <div className="post__center">
                     <span className="post-text">{post.body}</span>
                     <img className="post-image"
-                        src={"assets/post.jpg"}
+                        src={post.img}
                         alt=""
                     />
                 </div>
