@@ -16,7 +16,6 @@ export default function Post({ post }) {
     const fetchUsers = async () => {
         try {
             const res = await axios.get(`/api/user?id=${post.owner}`);
-            console.log(res.data);
             setUser(res.data)
         } catch (err) {
             console.log(err);
@@ -52,6 +51,19 @@ export default function Post({ post }) {
             console.log(err)
         }
     }
+    const handleDeletePostClick = async () => {
+        try {
+            await axios.delete(`/api/posts/${post._id}/delete`, {
+                headers: {
+                    'Auth': `Bearer ${currentUser.token}`
+                }
+            })
+            console.log(`${post._id} deleted`);
+            window.location.reload()
+        } catch (err) {
+            console.log(err);
+        }
+    }
     return (
         <div className="post">
             <div className="post-wrapper">
@@ -63,11 +75,17 @@ export default function Post({ post }) {
                                 alt=''
                             />
                         </Link>
-                        <span className="post-username">{currentUser.user._id === post.owner ? `Me` : `${post.username}`}</span>
+                        <Link className="router-link" to={currentUser.user._id === post.owner ? `/profile/me` : `/profile/${post.owner}`}>
+                            <span className={`post-username ${currentUser.user._id === post.owner && 'post-username_user'}`}>{post.username}</span>
+                        </Link>
                         <span className="post-date">{format(post.createdAt)}</span>
                     </div>
                     <div className="post__top-right">
-                        {currentUser.user._id === post.owner ? <DeleteOutline className="post-icon" /> : ''}
+                        {currentUser.user._id === post.owner ?
+                            <DeleteOutline className="post-icon" onClick={handleDeletePostClick} />
+                            :
+                            ''
+                        }
                     </div>
                 </div>
                 <div className="post__center">

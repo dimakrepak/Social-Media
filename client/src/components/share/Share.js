@@ -20,11 +20,13 @@ export default function Share() {
             }
         }
     }, [file])
+
     const handleShareClick = async () => {
         const newPost = {
             body: desc,
         }
         if (imgStr) {
+            console.log(imgStr);
             newPost.img = imgStr
             console.log(newPost);
         }
@@ -34,6 +36,7 @@ export default function Share() {
                     'Auth': `Bearer ${currentUser.token}`
                 }
             });
+            window.location.reload();
         } catch (err) { }
         console.log('click');
         setImgStr('');

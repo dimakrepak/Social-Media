@@ -62,14 +62,16 @@
   cursor: pointer;
 }
 .navbar-profile {
+  min-width: 68px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   cursor: pointer;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 50px;
   background-color: rgb(240, 242, 245);
   font-weight: 400;
+  padding-right: 4px;
 }
 .navbar-profile:hover {
   background-color: rgb(231, 243, 255);
@@ -77,7 +79,7 @@
   color: rgb(6, 139, 255);
 }
 .navbar-link {
-  padding: 3.5px;
+  margin:0px auto;
   cursor: pointer;
   font-size: 12px;
 }
