@@ -1,5 +1,6 @@
 import './login.css';
 import { useState, useContext } from 'react';
+import { useHistory } from 'react-router';
 import { loginPost } from '../../api.calls';
 import { AuthContext } from '../../context/AuthContext';
 import { CircularProgress } from '@material-ui/core';
@@ -10,6 +11,7 @@ export default function Login() {
         email: '',
         password: '',
     });
+    const history = useHistory()
 
     const handleFormChange = (e) => {
         setFormData({
@@ -56,7 +58,7 @@ export default function Login() {
                         </button>
                         <span className="login-forget">Forgot password?</span>
                     </form>
-                    <button className="create-button" disabled={isFetching}>Create New Account</button>
+                    <button className="create-button" disabled={isFetching} onClick={() => { history.push('/register') }}>Create New Account</button>
                 </div>
             </div>
         </div>

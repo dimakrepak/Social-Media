@@ -28,7 +28,7 @@ function App() {
         </Route>
 
         <Route path="/profile/:id">
-          <Profile />
+          {currentUser ? <Profile /> : <Redirect to="/login" />}
         </Route>
       </Switch>
     </Router>
