@@ -1,6 +1,6 @@
 .leftbar-container {
   flex: 1;
-  height: calc(100vh - 100px);
+  height: calc(100vh - 150px);
   background-color: rgb(47, 47, 47);
   margin-top: 50px;
   border-top-right-radius: 5px;
