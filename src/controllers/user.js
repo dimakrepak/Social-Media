@@ -115,8 +115,19 @@ const getUser = async (req, res) => {
     }
 }
 
-
+const getFollowings = async (req, res) => {
+    try {
+        const user = await userModel.findById(req.params.id);
+        const friends = await Promise.all(
+            user.following.map(followingsId => userModel.findById(followingsId))
+        )
+        res.status(200).json(friends);
+    } catch (err) {
+        res.status(500).json(err)
+    }
+}
 module.exports = {
+    getUser,
     createUser,
     loginUser,
     logoutUser,
@@ -125,5 +136,5 @@ module.exports = {
     getUserMe,
     followUser,
     unfollowUser,
-    getUser
+    getFollowings,
 }

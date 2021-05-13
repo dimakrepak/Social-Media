@@ -11,6 +11,7 @@ router
     .post('/logout', auth, userController.logoutUser)
     .get('/users/me', auth, userController.getUserMe)
     .get('/user', userController.getUser)
+    .get('/friends/:id', auth, userController.getFollowings)
     .put('/users/me', auth, userController.updateUser)
     .put('/users/:id/follow', auth, userController.followUser)
     .put('/users/:id/unfollow', auth, userController.unfollowUser)
