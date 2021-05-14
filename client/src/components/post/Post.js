@@ -71,7 +71,7 @@ export default function Post({ post }) {
                     <div className="post__top-left">
                         <Link className="router-link" to={currentUser.user._id === post.owner ? `/profile/me` : `/profile/${post.owner}`}>
                             <img className="post-profile-picture"
-                                src={user.profilePicture || '/assets/profile/noavatar.png'}
+                                src={user.profilePicture || 'https://i.pinimg.com/originals/fc/04/73/fc047347b17f7df7ff288d78c8c281cf.png'}
                                 alt=''
                             />
                         </Link>

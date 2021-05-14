@@ -1,6 +1,12 @@
 import './rightbar.css';
+import axios from 'axios';
+import { useEffect, useState, useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 
 export default function Rightbar({ profile }) {
+    const { currentUser } = useContext(AuthContext);
+
+
     //inner Component
     const HomeRightbar = () => {
         return (
@@ -25,7 +31,7 @@ export default function Rightbar({ profile }) {
                             <div className="right-bar__profile-img-container">
                                 <img
                                     className="right-bar__profile-img"
-                                    src="assets/profile/noavatar.png"
+                                    src="https://i.pinimg.com/originals/fc/04/73/fc047347b17f7df7ff288d78c8c281cf.png"
                                     alt=""
                                 />
                                 <span className="right-bar__online"></span>
@@ -39,6 +45,25 @@ export default function Rightbar({ profile }) {
     }
     //inner Component
     const ProfileRightbar = () => {
+        const [friends, setFriends] = useState([])
+        const fetchFriends = async () => {
+            if (profile._id)
+                try {
+                    const friendsRes = await axios.get(`/api/friends/${profile._id}`, {
+                        headers: {
+                            'Auth': `Bearer ${currentUser.token}`
+                        }
+                    })
+                    console.log(friendsRes.data);
+                    setFriends(friendsRes.data)
+                } catch (err) {
+                    console.log(err)
+                }
+        }
+
+        useEffect(() => {
+            fetchFriends()
+        }, [profile])
         return (
             <>
                 <div className="profile-rightbar__intro">
@@ -62,23 +87,18 @@ export default function Rightbar({ profile }) {
                 </div>
                 <div className="profile-rightbar-friends">
                     <h2>Friends</h2>
+                    <span className="profile-rightbar-friends-amount">{friends.length} friends</span>
                     <div className="profile-rightbar-friends__wrapper">
-                        <div className="profile-friend_item">
-                            <img className="profile-friend-img" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
-                            <span className="profile-friend_item-username">Sergey 123</span>
-                        </div>
-                        <div className="profile-friend_item">
-                            <img className="profile-friend-img" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
-                            <span className="profile-friend_item-username">Sergey 123</span>
-                        </div>
-                        <div className="profile-friend_item">
-                            <img className="profile-friend-img" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
-                            <span className="profile-friend_item-username">Sergey 123</span>
-                        </div>
-                        <div className="profile-friend_item">
-                            <img className="profile-friend-img" src="https://www.w3schools.com/howto/img_avatar.png" alt="" />
-                            <span className="profile-friend_item-username">Sergey 123</span>
-                        </div>
+                        {friends.map((friend) => (
+                            <div className="profile-friend_item" key={friend._id}>
+                                <img
+                                    className="profile-friend-img"
+                                    src={friend.profilePicture || "https://i.pinimg.com/originals/fc/04/73/fc047347b17f7df7ff288d78c8c281cf.png"}
+                                    alt=""
+                                />
+                                <span className="profile-friend_item-username">{friend.username}</span>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </>

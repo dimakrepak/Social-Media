@@ -30,10 +30,14 @@ export default function Navbar() {
                         <Forum />
                     </div>
                 </div>
-                <Link className="router-link" to={`profile/me`}>
+                <Link className="router-link" to={`/profile/me`}>
                     <div className="navbar-profile">
                         <img
-                            src={currentUser.user.profilePicture ? currentUser.user.profilePicture : '/assets/profile/noavatar.png'}
+                            src={currentUser.user.profilePicture ?
+                                currentUser.user.profilePicture
+                                :
+                                'https://i.pinimg.com/originals/fc/04/73/fc047347b17f7df7ff288d78c8c281cf.png'
+                            }
                             alt=""
                             className="navbar-profile__picture"
                         />

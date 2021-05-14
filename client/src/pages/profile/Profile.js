@@ -1,14 +1,34 @@
 import Feed from '../../components/feed/Feed';
 import './profile.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 import { useParams } from "react-router";
 import Rightbar from '../../components/rightbar/Rightbar';
 import Navbar from '../../components/navbar/Navbar';
+import axios from 'axios'
 
 export default function Profile() {
+    const { currentUser } = useContext(AuthContext);
     const [user, setUser] = useState({});
     const id = useParams().id;
     console.log(id);
+
+    useEffect(() => {
+        if (id === 'me') {
+            setUser(currentUser.user)
+        } else {
+            const fetchUser = async () => {
+                try {
+                    const res = await axios.get(`/api/user?id=${id}`)
+                    console.log(res.data);
+                    setUser(res.data);
+                } catch (err) {
+                    console.log(err);
+                }
+            };
+            fetchUser();
+        }
+    }, [id]);
     return (
         <>
             <Navbar />
@@ -22,17 +42,17 @@ export default function Profile() {
                         />
                         <img
                             className="profile-user-image"
-                            src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                            src={user.profilePicture || "https://i.pinimg.com/originals/fc/04/73/fc047347b17f7df7ff288d78c8c281cf.png"}
                             alt=""
                         />
                     </div>
                     <div className="profile-info">
-                        <h1 className="profile-username">Dmitry Krepak</h1>
+                        <h1 className="profile-username">{user.username}</h1>
                         <span className="profile-desc">Hi Im in love with falafel and good shnitzel</span>
                     </div>
                 </div>
                 <div className="profile-center">
-                    <Rightbar profile />
+                    <Rightbar profile={user} />
                     <Feed id={id} />
                 </div>
             </div>

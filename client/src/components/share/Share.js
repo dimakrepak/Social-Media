@@ -48,7 +48,11 @@ export default function Share() {
             <div className="share__top">
                 <img
                     className="share-profile-picture"
-                    src={currentUser.user.profilePicture ? currentUser.user.profilePicture : '/assets/profile/pic1.jpeg'}
+                    src={currentUser.user.profilePicture ?
+                        currentUser.user.profilePicture
+                        :
+                        'https://i.pinimg.com/originals/fc/04/73/fc047347b17f7df7ff288d78c8c281cf.png'
+                    }
                     alt='' />
                 <div className="share-input">
                     <input
