@@ -47,10 +47,12 @@ export default function Rightbar({ profile }) {
     //inner PROFILE Component
     const ProfileRightbar = () => {
         const [friends, setFriends] = useState([])
+        const [followed, setFollowed] = useState(false)
+
         const fetchFriends = async () => {
-            if (profile._id)
+            if (profile)
                 try {
-                    const friendsRes = await axios.get(`/api/friends/${profile._id}`, {
+                    const friendsRes = await axios.get(`/api/friends/${profile?._id}`, {
                         headers: {
                             'Auth': `Bearer ${currentUser.token}`
                         }
@@ -61,13 +63,42 @@ export default function Rightbar({ profile }) {
                     console.log(err)
                 }
         }
-
         useEffect(() => {
             fetchFriends()
         }, [profile])
+
+        useEffect(() => {
+            setFollowed(currentUser.user.following.includes(profile?._id))
+        }, [currentUser, profile])
+
+        const handleFollowClick = async () => {
+            try {
+                if (followed) {
+                    console.log('asdas', profile._id)
+                    await axios.put(`/api/users/${profile._id}/follow`, {}, {
+                        headers: {
+                            'Auth': `Bearer ${currentUser.token}`
+                        }
+                    })
+                } else {
+                    await axios.put(`/api/users/${profile._id}/unfollow`, {}, {
+                        headers: {
+                            'Auth': `Bearer ${currentUser.token}`
+                        }
+                    })
+                }
+                setFollowed(!followed)
+            } catch (err) {
+                console.log(err);
+            }
+        }
         return (
             <>
-                <button className="follow-btn">Follow</button>
+                {currentUser.user._id !== profile._id &&
+                    <button className="follow-btn" onClick={handleFollowClick}>
+                        {followed ? 'Unfollow' : 'Follow'}
+                    </button>
+                }
                 <div className="profile-rightbar__intro">
                     <h2>Intro</h2>
                     <div className="profile-rightbar-info__item">

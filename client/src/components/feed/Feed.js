@@ -32,10 +32,13 @@ export default function Feed({ id }) {
     }
     useEffect(() => {
         fetchPosts();
+        console.log('id', id);
     }, [id, currentUser.token])
     return (
         <div className="feed-container">
-            <Share />
+            {(id === currentUser.user._id || id === 'me' || !id) &&
+                < Share />
+            }
             {posts.map((p) => {
                 return (
                     <Post
