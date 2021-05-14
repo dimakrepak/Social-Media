@@ -3,9 +3,45 @@
   flex-flow: column;
   justify-content: center;
   align-items: center;
+  padding: 0 20%;
 }
 .profile-center {
   display: flex;
   justify-content: center;
-  width: 65%;
+  /* width: 65%; */
+}
+.profile-top {
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  align-items: center;
+}
+.profile-top-images {
+  height: 450px;
+  position: relative;
+}
+.profile-cover-image {
+  width: 100%;
+  height: 85%;
+  object-fit: cover;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+.profile-user-image {
+  object-fit: cover;
+  background-color: rgb(240, 242, 245);
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 3px solid rgb(240, 242, 245);
+  top: 55%;
+  left: 0;
+  right: 0;
+  margin:10px auto;
+}
+.profile-info {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
 }

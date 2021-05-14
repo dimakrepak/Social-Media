@@ -31,7 +31,7 @@ export default function Share() {
             console.log(newPost);
         }
         try {
-            await axios.post("api/posts/create", newPost, {
+            await axios.post("/api/posts/create", newPost, {
                 headers: {
                     'Auth': `Bearer ${currentUser.token}`
                 }
