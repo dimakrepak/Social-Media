@@ -15,7 +15,6 @@ body {
   background-color: rgb(240, 242, 245);
 }
 .router-link {
-  display: inline-block;
   text-decoration: none;
   color: black;
 }

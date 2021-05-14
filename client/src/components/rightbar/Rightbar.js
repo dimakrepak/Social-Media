@@ -2,6 +2,7 @@ import './rightbar.css';
 import axios from 'axios';
 import { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import { Link } from "react-router-dom";
 
 export default function Rightbar({ profile }) {
     const { currentUser } = useContext(AuthContext);
@@ -91,11 +92,13 @@ export default function Rightbar({ profile }) {
                     <div className="profile-rightbar-friends__wrapper">
                         {friends.map((friend) => (
                             <div className="profile-friend_item" key={friend._id}>
-                                <img
-                                    className="profile-friend-img"
-                                    src={friend.profilePicture || "https://i.pinimg.com/originals/fc/04/73/fc047347b17f7df7ff288d78c8c281cf.png"}
-                                    alt=""
-                                />
+                                <Link className="router-link" to={`/profile/${friend._id}`}>
+                                    <img
+                                        className="profile-friend-img"
+                                        src={friend.profilePicture || "https://i.pinimg.com/originals/fc/04/73/fc047347b17f7df7ff288d78c8c281cf.png"}
+                                        alt=""
+                                    />
+                                </Link>
                                 <span className="profile-friend_item-username">{friend.username}</span>
                             </div>
                         ))}
