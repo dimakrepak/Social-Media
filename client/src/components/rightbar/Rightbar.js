@@ -44,7 +44,7 @@ export default function Rightbar({ profile }) {
             </>
         )
     }
-    //inner Component
+    //inner PROFILE Component
     const ProfileRightbar = () => {
         const [friends, setFriends] = useState([])
         const fetchFriends = async () => {
@@ -67,6 +67,7 @@ export default function Rightbar({ profile }) {
         }, [profile])
         return (
             <>
+                <button className="follow-btn">Follow</button>
                 <div className="profile-rightbar__intro">
                     <h2>Intro</h2>
                     <div className="profile-rightbar-info__item">

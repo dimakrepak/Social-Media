@@ -4,6 +4,8 @@
   height: calc(100vh - 100px);
   padding: 0 10px;
   position: sticky;
+  display: flex;
+  flex-flow: column;
   top: 100px;
 }
 .rightbar-ads {
@@ -59,6 +61,7 @@
   border: 2px solid rgb(240, 242, 245);
 }
 .profile-rightbar__intro {
+  margin-top: 10px;
   padding: 15px;
   border-radius: 5px;
   background-color: rgb(255, 255, 255);
@@ -102,4 +105,20 @@
 }
 .profile-friend_item-username {
   font-size: 15px;
+}
+.follow-btn {
+  width: 120px;
+  height: 50px;
+  border: 1px rgb(0, 0, 0, 0.1) solid;
+  border-radius: 40px;
+  cursor: pointer;
+  background-color: rgb(55, 148, 255);
+  color: rgb(255, 255, 255);
+  font-weight: 500;
+  font-size: 18px;
+  align-self: center;
+  
+}
+.follow-btn:hover {
+  background-color: rgb(0, 108, 231);
 }

@@ -8,7 +8,7 @@
 .profile-center {
   display: flex;
   justify-content: center;
-  min-width: 70%;
+  min-width: 85%;
 }
 .profile-top {
   display: flex;
