@@ -18,3 +18,10 @@ body {
   text-decoration: none;
   color: black;
 }
+.landing-page__image{
+  position: absolute;
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
+  z-index: -10;
+}

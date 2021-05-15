@@ -5,8 +5,8 @@ import { AuthContext } from '../../context/AuthContext';
 import { Link } from "react-router-dom";
 
 export default function Rightbar({ profile }) {
-    const { currentUser } = useContext(AuthContext);
 
+    const { currentUser, dispatch } = useContext(AuthContext);
 
     //inner Component
     const HomeRightbar = () => {
@@ -46,46 +46,46 @@ export default function Rightbar({ profile }) {
     }
     //inner PROFILE Component
     const ProfileRightbar = () => {
-        const [friends, setFriends] = useState([])
-        const [followed, setFollowed] = useState(false)
-
+        const [friends, setFriends] = useState([]);
+        const [followed, setFollowed] = useState(currentUser.user.following.includes(profile._id));
+        console.log(followed);
+        console.log(profile._id)
+        console.log(currentUser.user.following.includes(profile?._id));
+        console.log(currentUser)
         const fetchFriends = async () => {
-            if (profile)
-                try {
-                    const friendsRes = await axios.get(`/api/friends/${profile?._id}`, {
-                        headers: {
-                            'Auth': `Bearer ${currentUser.token}`
-                        }
-                    })
-                    console.log(friendsRes.data);
-                    setFriends(friendsRes.data)
-                } catch (err) {
-                    console.log(err)
-                }
+            try {
+                const friendsRes = await axios.get(`/api/friends/${profile?._id}`, {
+                    headers: {
+                        'Auth': `Bearer ${currentUser.token}`
+                    }
+                })
+                console.log(friendsRes.data);
+                setFriends(friendsRes.data)
+            } catch (err) {
+                console.log(err)
+            }
         }
         useEffect(() => {
             fetchFriends()
-        }, [profile])
-
-        useEffect(() => {
-            setFollowed(currentUser.user.following.includes(profile?._id))
         }, [currentUser, profile])
 
         const handleFollowClick = async () => {
             try {
                 if (followed) {
                     console.log('asdas', profile._id)
-                    await axios.put(`/api/users/${profile._id}/follow`, {}, {
-                        headers: {
-                            'Auth': `Bearer ${currentUser.token}`
-                        }
-                    })
-                } else {
                     await axios.put(`/api/users/${profile._id}/unfollow`, {}, {
                         headers: {
                             'Auth': `Bearer ${currentUser.token}`
                         }
-                    })
+                    });
+                    dispatch({ type: 'UNFOLLOW', payload: profile._id })
+                } else {
+                    await axios.put(`/api/users/${profile._id}/follow`, {}, {
+                        headers: {
+                            'Auth': `Bearer ${currentUser.token}`
+                        }
+                    });
+                    dispatch({ type: 'FOLLOW', payload: profile._id })
                 }
                 setFollowed(!followed)
             } catch (err) {

@@ -30,6 +30,7 @@ export default function Login() {
     }
     return (
         <div className="login">
+            <img className="landing-page__image" src="https://picsum.photos/3000/2000" alt="" />
             <div className="login__left"></div>
             <div className="login__right">
                 <div className="login-box">

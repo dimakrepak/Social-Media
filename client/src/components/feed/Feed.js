@@ -32,7 +32,6 @@ export default function Feed({ id }) {
     }
     useEffect(() => {
         fetchPosts();
-        console.log('id', id);
     }, [id, currentUser.token])
     return (
         <div className="feed-container">

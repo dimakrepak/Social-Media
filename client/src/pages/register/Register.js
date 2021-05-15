@@ -32,6 +32,7 @@ export default function Register() {
     }
     return (
         <div className="login">
+            <img className="landing-page__image" src="https://picsum.photos/3000/2000" alt="" />
             {console.log(account)}
             <div className="login__left"></div>
             <div className="login__right">
