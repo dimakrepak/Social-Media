@@ -126,8 +126,17 @@ const getFollowings = async (req, res) => {
         res.status(500).json(err)
     }
 }
+const findUser = async (req, res) => {
+    try {
+        const users = await userModel.find({ username: { $regex: req.params.username, $options: 'i' } })
+        res.status(200).json(users);
+    } catch (err) {
+        res.status(500).json(err)
+    }
+}
 module.exports = {
     getUser,
+    findUser,
     createUser,
     loginUser,
     logoutUser,

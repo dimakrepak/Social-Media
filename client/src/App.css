@@ -15,9 +15,6 @@ body {
   background-color: rgb(240, 242, 245);
 }
 .router-link {
-  display: flex;
-  align-items:center;
-  justify-content: center;
   text-decoration: none;
   color: black;
 }

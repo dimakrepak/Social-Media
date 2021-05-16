@@ -26,6 +26,7 @@
   flex: 2;
 }
 .navbar-searchbar {
+  position: relative;
   width: 90%;
   height: 35px;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -43,13 +44,56 @@
   width: 80%;
   background-color: transparent;
 }
+/* --------------------DROP DOWN CSS STYLING ---------------------*/
+.navbar__center-dropdown {
+  position: absolute;
+  width: 100%;
+  background-color: white;
+  top: 10px;
+  z-index: -10;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 40px 10px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  transition: all 1s ease-in;
+}
+.navbar__center-results {
+  list-style: none;
+}
+.navbar__center-dropdown-friend {
+  padding:5px;
+  margin: 5px 0;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
+}
+.navbar__center-dropdown-friend:hover {
+  background-color: rgb(247, 247, 247);
+}
+.navbar__center-img-container {
+  margin-right: 5px;
+}
+.navbar__center-img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+.result-friend_username {
+  font-size: 14px;
+}
+/* ---------------------------------------- */
 .navbar__right {
   flex: 1.5;
   display: flex;
   align-items: center;
   justify-content: space-around;
 }
-
+.navbar-home__link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .navbar-icons {
   display: flex;
   align-items: center;
