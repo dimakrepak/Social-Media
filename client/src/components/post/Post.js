@@ -90,10 +90,14 @@ export default function Post({ post }) {
                 </div>
                 <div className="post__center">
                     <span className="post-text">{post.body}</span>
-                    <img className="post-image"
-                        src={post.img}
-                        alt=""
-                    />
+                    {post.img &&
+                        <div className="post__center-container">
+                            <img className="post-image"
+                                src={post.img}
+                                alt=""
+                            />
+                        </div>
+                    }
                 </div>
                 <div className="post__bottom">
                     <div className="post__bottom-left">

@@ -26,7 +26,7 @@ export default function Navbar() {
                 </div>
             </div>
             <div className="navbar__right">
-                <Link to="/">
+                <Link className="router-link" to="/">
                     <HomeRounded className="navbar-icons__icon-material" />
                 </Link>
                 <div className="navbar-icons">

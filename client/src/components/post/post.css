@@ -42,9 +42,20 @@
 .post__center {
   margin: 10px 0;
 }
-.post-image {
+.post__center-container {
   width: 100%;
-  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(240, 242, 245);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  margin: 10px 0;
+  padding: 2px 0;
+}
+.post-image {
+  width: 85%;
+  border-radius:5px;
   max-height: 500px;
   object-fit: contain;
 }

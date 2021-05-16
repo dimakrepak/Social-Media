@@ -1,7 +1,7 @@
 import './share.css'
 import { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { PhotoLibrary, RedeemRounded } from "@material-ui/icons";
+import { PhotoLibrary, Clear } from "@material-ui/icons";
 import axios from 'axios'
 
 export default function Share() {
@@ -41,7 +41,10 @@ export default function Share() {
         console.log('click');
         setImgStr('');
     }
-
+    const handleShareImageClear = async () => {
+        setFile('');
+        setImgStr('');
+    }
 
     return (
         <div className="share-container">
@@ -63,6 +66,14 @@ export default function Share() {
                     />
                 </div>
             </div>
+            {file &&
+                <div className="share-image__preview-container">
+                    <img className="share-image__preview" src={imgStr} alt="" />
+                    <button className="share-image__clear" onClick={handleShareImageClear}>
+                        <Clear />
+                    </button>
+                </div>
+            }
             <div className="share__bottom">
                 <label htmlFor="file" className="share-option">
                     <PhotoLibrary className="share-icon" />
