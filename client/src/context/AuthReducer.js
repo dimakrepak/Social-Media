@@ -1,3 +1,5 @@
+import { STATES } from "mongoose";
+
 const AuthReducer = (state, action) => {
     switch (action.type) {
         case "LOGIN_START":
@@ -18,12 +20,23 @@ const AuthReducer = (state, action) => {
                 isFetching: false,
                 error: true,
             };
+        case "LOGOUT_SUCCESS":
+            return {
+                ...state,
+                currentUser: action.payload,
+            }
+        case "LOGOUT_FAILURE":
+            return {
+                currentUser: null,
+                isFetching: false,
+                error: true,
+            }
         case "FOLLOW":
             return {
                 ...state,
                 currentUser: {
                     ...state.currentUser,
-                    user:{
+                    user: {
                         ...state.currentUser.user,
                         following: [...state.currentUser.user.following, action.payload],
                     }

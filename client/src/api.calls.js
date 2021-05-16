@@ -17,3 +17,15 @@ export const registerPost = async (userCredentials, dispatch) => {
         dispatch({ type: 'LOGIN_FAILURE', payload: err });
     }
 }
+export const logoutPost = async (userCredentials, dispatch) => {
+    try {
+        const res = await axios.post('/api/logout', {}, {
+            headers: {
+                'Auth': `Bearer ${userCredentials}`
+            }
+        });
+        dispatch({ type: 'LOGOUT_SUCCESS', payload: null })
+    } catch (err) {
+        dispatch({ type: 'LOGOUT_FAILURE', payload: err });
+    }
+}

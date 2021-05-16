@@ -61,6 +61,18 @@
   height: 100%;
   margin-right: 10px;
   cursor: pointer;
+  /* font-size: 30px !important; */
+}
+.navbar-icons__icon-material{
+  cursor: pointer;
+  font-size: 30px !important;
+  color: rgb(102,102,102);
+}
+.navbar-icons__icon-material:hover{
+  color: rgb(26, 26, 26);
+}
+.navbar-profile-navbar__container{
+  display: flex;
 }
 .navbar-profile {
   min-width: 68px;
@@ -80,7 +92,7 @@
   color: rgb(6, 139, 255);
 }
 .navbar-link {
-  margin:0px auto;
+  margin: 0px auto;
   cursor: pointer;
   font-size: 12px;
 }
@@ -89,4 +101,19 @@
   height: 35px;
   border-radius: 50%;
   object-fit: cover;
+}
+.navbar-logout{
+  margin-left: 5px;
+  background-color: rgb(240, 242, 245);
+  display: flex;
+  height:35px;
+  justify-content: center;
+  align-items: center;
+  border:1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  width:35px;
+  cursor: pointer;
+}
+.navbar-logout:hover{
+  background-color: rgb(231, 243, 255);
 }
