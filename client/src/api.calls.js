@@ -19,7 +19,7 @@ export const registerPost = async (userCredentials, dispatch) => {
 }
 export const logoutPost = async (userCredentials, dispatch) => {
     try {
-        const res = await axios.post('/api/logout', {}, {
+        await axios.post('/api/logout', {}, {
             headers: {
                 'Auth': `Bearer ${userCredentials}`
             }

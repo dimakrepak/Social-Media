@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
+import { CircularProgress } from '@material-ui/core';
 import { AuthContext } from '../../context/AuthContext';
 import Post from '../post/Post';
 import Share from '../share/Share';
@@ -8,8 +9,10 @@ import axios from 'axios'
 export default function Feed({ id }) {
     const [posts, setPosts] = useState([]);
     const { currentUser } = useContext(AuthContext);
+    const [loading, setLoading] = useState(false)
 
     const fetchPosts = async () => {
+        setLoading(true);
         try {
             const res = !id ? await axios.get(`/api/posts/timeline/me`, {
                 headers: {
@@ -25,6 +28,7 @@ export default function Feed({ id }) {
                     :
                     await axios.get(`/api/posts/user/${id}`);
             console.log(res.data);
+            setLoading(false);
             setPosts(res.data)
         } catch (err) {
             console.log(err);
@@ -32,20 +36,26 @@ export default function Feed({ id }) {
     }
     useEffect(() => {
         fetchPosts();
-    }, [id, currentUser.token])
+    }, [id, currentUser])
     return (
         <div className="feed-container">
             {(id === currentUser.user._id || id === 'me' || !id) &&
                 < Share />
             }
-            {posts.map((p) => {
-                return (
-                    <Post
-                        key={p._id}
-                        post={p}
-                    />
-                )
-            })}
+            {loading ?
+                <CircularProgress />
+                : posts.length === 0 ?
+                    <span className="empty-feed">No Posts Yet</span>
+                    :
+                    posts.map((p) => {
+                        return (
+                            <Post
+                                key={p._id}
+                                post={p}
+                            />
+                        )
+                    })
+            }
         </div>
     )
 }

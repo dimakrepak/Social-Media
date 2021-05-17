@@ -27,6 +27,7 @@
 .login-forget__register {
   margin: 5px 0;
   color: rgb(53, 147, 255);
+  font-size: 12px;
 }
 .login-button__register{
   display: flex;

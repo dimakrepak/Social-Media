@@ -5,3 +5,6 @@
     flex-flow: column;
     align-items: center;
 }
+.empty-feed{
+    font-size: 25px;
+}

@@ -6,7 +6,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { CircularProgress } from '@material-ui/core';
 
 export default function Login() {
-    const { currentUser, isFetching, error, dispatch } = useContext(AuthContext);
+    const { isFetching, error, dispatch } = useContext(AuthContext);
     const [formData, setFormData] = useState({
         email: '',
         password: '',

@@ -47,11 +47,7 @@ export default function Rightbar({ profile }) {
     //inner PROFILE Component
     const ProfileRightbar = () => {
         const [friends, setFriends] = useState([]);
-        const [followed, setFollowed] = useState(currentUser.user.following.includes(profile._id));
-        console.log(followed);
-        console.log(profile._id)
-        console.log(currentUser.user.following.includes(profile?._id));
-        console.log(currentUser)
+        const [followed, setFollowed] = useState(currentUser.user.following.includes(profile?._id));
         const fetchFriends = async () => {
             try {
                 const friendsRes = await axios.get(`/api/friends/${profile?._id}`, {
@@ -67,12 +63,11 @@ export default function Rightbar({ profile }) {
         }
         useEffect(() => {
             fetchFriends()
-        }, [currentUser, profile])
+        }, [profile._id])
 
         const handleFollowClick = async () => {
             try {
                 if (followed) {
-                    console.log('asdas', profile._id)
                     await axios.put(`/api/users/${profile._id}/unfollow`, {}, {
                         headers: {
                             'Auth': `Bearer ${currentUser.token}`
@@ -122,18 +117,19 @@ export default function Rightbar({ profile }) {
                     <h2>Friends</h2>
                     <span className="profile-rightbar-friends-amount">{friends.length} friends</span>
                     <div className="profile-rightbar-friends__wrapper">
-                        {friends.map((friend) => (
-                            <div className="profile-friend_item" key={friend._id}>
-                                <Link className="router-link" to={`/profile/${friend._id}`}>
-                                    <img
-                                        className="profile-friend-img"
-                                        src={friend.profilePicture || "https://i.pinimg.com/originals/fc/04/73/fc047347b17f7df7ff288d78c8c281cf.png"}
-                                        alt=""
-                                    />
-                                </Link>
-                                <span className="profile-friend_item-username">{friend.username}</span>
-                            </div>
-                        ))}
+                        {friends &&
+                            friends.map((friend) => (
+                                <div className="profile-friend_item" key={friend._id}>
+                                    <Link className="router-link" to={`/profile/${friend._id}`}>
+                                        <img
+                                            className="profile-friend-img"
+                                            src={friend.profilePicture || "https://i.pinimg.com/originals/fc/04/73/fc047347b17f7df7ff288d78c8c281cf.png"}
+                                            alt=""
+                                        />
+                                    </Link>
+                                        <span className="profile-friend_item-username">{friend.username}</span>
+                                </div>
+                            ))}
                     </div>
                 </div>
             </>

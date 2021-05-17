@@ -9,6 +9,7 @@ router
     .post('/register', userController.createUser)
     .post('/login', userController.loginUser)
     .post('/logout', auth, userController.logoutUser)
+    .post('/user/update', auth, userController.updateUserProfile)
     .get('/users/me', auth, userController.getUserMe)
     .get('/user', userController.getUser)
     .get('/friends/:id', auth, userController.getFollowings)

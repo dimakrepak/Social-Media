@@ -2,6 +2,7 @@ import './share.css'
 import { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { PhotoLibrary, Clear } from "@material-ui/icons";
+import Compressor from 'compressorjs';
 import axios from 'axios'
 
 export default function Share() {
@@ -12,12 +13,17 @@ export default function Share() {
 
     useEffect(() => {
         if (file) {
-            const reader = new FileReader();
-            console.log(file);
-            reader.readAsDataURL(file)
-            reader.onloadend = () => {
-                setImgStr(reader.result)
-            }
+            new Compressor(file, {
+                quality: 0.4,
+                success(res) {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(res)
+                    reader.onloadend = () => {
+                        console.log(reader.result);
+                        setImgStr(reader.result)
+                    }
+                }
+            })
         }
     }, [file])
 
@@ -37,8 +43,9 @@ export default function Share() {
                 }
             });
             window.location.reload();
-        } catch (err) { }
-        console.log('click');
+        } catch (err) {
+            console.log(err);
+        }
         setImgStr('');
     }
     const handleShareImageClear = async () => {
@@ -70,7 +77,7 @@ export default function Share() {
                 <div className="share-image__preview-container">
                     <img className="share-image__preview" src={imgStr} alt="" />
                     <button className="share-image__clear" onClick={handleShareImageClear}>
-                        <Clear />
+                        <Clear className="share-image__clear-icon" />
                     </button>
                 </div>
             }

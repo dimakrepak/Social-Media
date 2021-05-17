@@ -74,7 +74,7 @@
 }
 .share-image__preview {
   width: 85%;
-  border-radius:5px;
+  border-radius: 5px;
 }
 .share-image__clear {
   position: absolute;
@@ -83,13 +83,16 @@
   align-items: center;
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  width: 22px;
+  height: 22px;
   background-color: #ffff;
   cursor: pointer;
-  right:-8px;
-  top:-8px;
+  right: 0px;
+  top: 0px;
 }
 .share-image__clear:hover {
   background-color: rgb(255, 125, 125);
+}
+.share-image__clear-icon {
+  font-size: 18px !important;
 }

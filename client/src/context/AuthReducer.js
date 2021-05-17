@@ -1,5 +1,3 @@
-import { STATES } from "mongoose";
-
 const AuthReducer = (state, action) => {
     switch (action.type) {
         case "LOGIN_START":
@@ -51,6 +49,18 @@ const AuthReducer = (state, action) => {
                     user: {
                         ...state.currentUser.user,
                         following: state.currentUser.user.following.filter(friend => friend !== action.payload)
+                    },
+                }
+
+            };
+        case "UPDATE":
+            return {
+                ...state,
+                currentUser: {
+                    ...state.currentUser,
+                    user: {
+                        ...state.currentUser.user,
+                        profilePicture: action.payload,
                     },
                 }
 

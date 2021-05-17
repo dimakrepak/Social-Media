@@ -8,8 +8,8 @@ import { Link } from "react-router-dom";
 
 export default function Navbar() {
     const { currentUser, dispatch } = useContext(AuthContext);
-    const [searchValue, setSearchValue] = useState('')
-    const [users, setUsers] = useState([])
+    const [searchValue, setSearchValue] = useState('');
+    const [users, setUsers] = useState([]);
 
     const handleLogOutClick = async () => logoutPost(currentUser.token, dispatch)
     const fetchSearchUsers = async () => {
@@ -50,7 +50,7 @@ export default function Navbar() {
                             <ul className="navbar__center-results">
                                 {users.map(user => (
                                     <Link className="router-link" to={user._id === currentUser.user._id ? `/profile/me` : `/profile/${user._id}`}>
-                                        <li className="navbar__center-dropdown-friend">
+                                        <li className="navbar__center-dropdown-friend" key={user._id}>
                                             <div className="navbar__center-img-container">
                                                 <img
                                                     className="navbar__center-img"

@@ -16,7 +16,7 @@
 }
 .login-box {
   width: 80%;
-  height: 55%;
+  height: 70%;
   padding: 15px;
   display: flex;
   background-color: #fff;
@@ -55,7 +55,7 @@
   border: 1px rgb(0, 0, 0, 0.1) solid;
   background-color: rgb(1, 120, 253);
   margin-top: 20px;
-  width: 70%;
+  width: 60%;
   font-weight: 500;
   cursor: pointer;
   font-size: 20px;
@@ -68,9 +68,10 @@
   cursor: not-allowed;
 }
 .login-forget {
-  margin: 5px 0;
+  margin: 2px 0;
   color: rgb(53, 147, 255);
   cursor: pointer;
+  font-size:12px;
 }
 .create-button {
   background-color: rgb(48, 192, 55);

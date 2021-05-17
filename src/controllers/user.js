@@ -134,6 +134,15 @@ const findUser = async (req, res) => {
         res.status(500).json(err)
     }
 }
+const updateUserProfile = async (req, res) => {
+    try {
+        req.user.profilePicture = req.body.image
+        await req.user.save()
+        res.send(req.user)
+    } catch (err) {
+        res.status(500).json(err)
+    }
+}
 module.exports = {
     getUser,
     findUser,
@@ -145,5 +154,6 @@ module.exports = {
     getUserMe,
     followUser,
     unfollowUser,
+    updateUserProfile,
     getFollowings,
 }
