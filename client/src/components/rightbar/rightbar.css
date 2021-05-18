@@ -84,13 +84,14 @@
 .profile-rightbar-friends__wrapper {
   margin-top: 5px;
   display: flex;
-  /* justify-content: center; */
+  justify-content: flex-start;
   align-items: center;
   flex-wrap: wrap;
   row-gap: 10px;
   column-gap: 30px;
 }
 .profile-friend_item {
+  /* padding: 5px; */
   width: 16%;
   display: flex;
   flex-flow: column;
@@ -100,16 +101,16 @@
   border-radius: 5px;
 }
 .profile-friend_item:hover {
-  background-color: rgb(240, 242, 245);
+  font-weight: 600;
 }
 .profile-friend-img {
-  width: 100%;
+  width: 45px;
+  height: 45px;
   border-radius: 10px;
   object-fit: cover;
 }
 .profile-friend_item-username {
-  margin-top: 3px;
-  font-size: 13px;
+  font-size: 12px;
 }
 .follow-btn {
   width: 120px;
