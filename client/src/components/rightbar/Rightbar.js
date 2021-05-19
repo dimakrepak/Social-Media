@@ -1,13 +1,15 @@
 import './rightbar.css';
 import axios from 'axios';
 import { useEffect, useState, useContext } from 'react';
+import { Edit, SaveRounded } from "@material-ui/icons";
 import { AuthContext } from '../../context/AuthContext';
 import { Link } from "react-router-dom";
+import EditInput from '../EditInput.js/EditInput';
+import { updateUser } from '../../api.calls';
 
 export default function Rightbar({ profile }) {
 
     const { currentUser, dispatch } = useContext(AuthContext);
-
     //inner Component
     const HomeRightbar = () => {
         return (
@@ -48,6 +50,32 @@ export default function Rightbar({ profile }) {
     const ProfileRightbar = () => {
         const [friends, setFriends] = useState([]);
         const [followed, setFollowed] = useState(currentUser.user.following.includes(profile?._id));
+        const [editMode, setEditMode] = useState(false);
+        const [introEdit, setIntroEdit] = useState({
+
+            city: `${currentUser.user.city}`,
+            from: `${currentUser.user.from}`,
+            languages: `${currentUser.user.languages}`,
+            hobbies: `${currentUser.user.hobbies}`,
+        })
+        const handleEditChange = (e) => {
+            setIntroEdit({
+                ...introEdit,
+                [e.target.name]: e.target.value
+            })
+        }
+        const handleEditModeClick = async () => {
+            setEditMode(!editMode)
+            setIntroEdit({
+                city: `${currentUser.user.city}`,
+                from: `${currentUser.user.from}`,
+                languages: `${currentUser.user.languages}`,
+                hobbies: `${currentUser.user.hobbies}`,
+            })
+        }
+        const handleSaveModeClick = async () => {
+            updateUser(currentUser.token, ({ ...introEdit }), dispatch)
+        }
         const fetchFriends = async () => {
             try {
                 const friendsRes = await axios.get(`/api/friends/${profile?._id}`, {
@@ -63,7 +91,7 @@ export default function Rightbar({ profile }) {
         }
         useEffect(() => {
             fetchFriends()
-        }, [profile._id])
+        }, [])
 
         const handleFollowClick = async () => {
             try {
@@ -94,25 +122,74 @@ export default function Rightbar({ profile }) {
                         {followed ? 'Unfollow' : 'Follow'}
                     </button>
                 }
+                {/* ---------------------------------- MAKE THIS COMPONENT IN THE FUTURE !!!!------------------------------ */}
                 <div className="profile-rightbar__intro">
-                    <h2>Intro</h2>
+                    {editMode ?
+                        <h2>Edit Intro</h2>
+                        :
+                        <h2>Intro</h2>
+                    }
                     <div className="profile-rightbar-info__item">
                         <span className="profile-info__key">City: </span>
-                        <span className="profile-info__value">Rishon Lezion</span>
+                        {!editMode ?
+                            <span className="profile-info__value">{profile.city}</span>
+                            :
+                            <EditInput
+                                inputValue={introEdit.city}
+                                onChange={handleEditChange}
+                                name='city'
+                            />
+                        }
                     </div>
                     <div className="profile-rightbar-info__item">
                         <span className="profile-info__key">From: </span>
-                        <span className="profile-info__value">Israel</span>
+                        {!editMode ?
+                            <span className="profile-info__value">{profile.from}</span>
+                            :
+                            <EditInput
+                                inputValue={introEdit.from}
+                                onChange={handleEditChange}
+                                name='from'
+                            />
+                        }
                     </div>
                     <div className="profile-rightbar-info__item">
                         <span className="profile-info__key">Languages: </span>
-                        <span className="profile-info__value">Spanish, Hebrew</span>
+                        {!editMode ?
+                            <span className="profile-info__value">{profile.languages}</span>
+                            :
+                            <EditInput
+                                inputValue={introEdit.languages}
+                                onChange={handleEditChange}
+                                name='languages'
+                            />
+                        }
                     </div>
                     <div className="profile-rightbar-info__item">
                         <span className="profile-info__key">Hobbies: </span>
-                        <span className="profile-info__value">Code</span>
+                        {!editMode ?
+                            <span className="profile-info__value">{profile.hobbies}</span>
+                            :
+                            <EditInput
+                                inputValue={introEdit.hobbies}
+                                onChange={handleEditChange}
+                                name="hobbies"
+                            />
+                        }
                     </div>
+                    {currentUser.user._id === profile._id &&
+                        <button className="profile-rightbar-info__edit" onClick={handleEditModeClick}>
+                            <Edit className="profile-rightbar-info__edit-icon" />
+                        </button>
+                    }
+                    {editMode &&
+                        <button className="profile-rightbar-info__save" onClick={handleSaveModeClick}>
+                            <SaveRounded />
+                            <span>Save</span>
+                        </button>
+                    }
                 </div>
+                {/* --------------------------------------------------------------------------------------- */}
                 <div className="profile-rightbar-friends">
                     <h2>Friends</h2>
                     <span className="profile-rightbar-friends-amount">{friends.length} friends</span>
@@ -127,7 +204,7 @@ export default function Rightbar({ profile }) {
                                             alt=""
                                         />
                                     </Link>
-                                        <span className="profile-friend_item-username">{friend.username}</span>
+                                    <span className="profile-friend_item-username">{friend.username}</span>
                                 </div>
                             ))}
                     </div>

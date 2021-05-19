@@ -29,3 +29,20 @@ export const logoutPost = async (userCredentials, dispatch) => {
         dispatch({ type: 'LOGOUT_FAILURE', payload: err });
     }
 }
+export const updateUser = async (userToken, userCredentials, dispatch) => {
+    dispatch({ type: 'UPDATE_START' });
+    try {
+        const res = await axios.put('/api/users/me',
+            {
+                ...userCredentials,
+            },
+            {
+                headers: {
+                    'Auth': `Bearer ${userToken}`
+                }
+            })
+        dispatch({ type: 'UPDATE_SUCCESS', payload: res.data })
+    } catch (err) {
+        dispatch({ type: 'UPDATE_FAILURE', payload: err });
+    }
+}

@@ -8,11 +8,15 @@ import { useParams } from "react-router";
 import Compressor from 'compressorjs';
 import axios from 'axios'
 import './profile.css';
+import EditInput from '../../components/EditInput.js/EditInput';
+import { updateUser } from '../../api.calls';
 
 export default function Profile() {
     const { currentUser, dispatch } = useContext(AuthContext);
     const [user, setUser] = useState({});
     const [file, setFile] = useState(null);
+    const [editMode, setEditMode] = useState(false);
+    const [desc, setDesc] = useState(currentUser.user.desc);
     const id = useParams().id;
 
     useEffect(() => {
@@ -31,6 +35,7 @@ export default function Profile() {
             fetchUser();
         }
     }, [id]);
+    console.log('User Check line 38', user)
     useEffect(() => {
         if (file) {
             new Compressor(file, {
@@ -58,6 +63,19 @@ export default function Profile() {
             console.log(err)
         }
     }
+
+    const handleEditProfile = () => {
+        setEditMode(true);
+    }
+    const handleSaveProfile = () => {
+        if (currentUser.user.desc !== desc) {
+            updateUser(currentUser.token, ({ desc }), dispatch)
+            console.log(currentUser.user);
+        }
+        // setUser(currentUser.user)
+        setEditMode(false);
+    }
+
     return (
         <>
             <Navbar />
@@ -66,7 +84,7 @@ export default function Profile() {
                     <div className="profile-top-images">
                         <img
                             className="profile-cover-image"
-                            src="https://www.webfx.com/blog/wp-content/uploads/2014/06/blur-branding-check-1032109.jpg"
+                            src="https://image.freepik.com/free-vector/network-abstract-connections-with-dots-lines-blue-background_110633-574.jpg"
                             alt=""
                         />
                         <img
@@ -89,11 +107,19 @@ export default function Profile() {
                     </div>
                     <div className="profile-info">
                         <h1 className="profile-username">{user.username}</h1>
-                        <span className="profile-desc">Hi Im in love with falafel and good shnitzel</span>
+                        {!editMode ?
+                            < span className="profile-desc">{user.desc}</span>
+                            :
+                            <EditInput profileEdit="profileStatusEdit" inputValue={desc} onChange={(e) => setDesc(e.target.value)} />
+                        }
+                        {!editMode ?
+                            <span className="profile-add-status" onClick={handleEditProfile}>Add Status</span>
+                            :
+                            <span className="profile-add-status" onClick={handleSaveProfile}>Save</span>
+                        }
                     </div>
                 </div>
                 <div className="profile-center">
-
                     <Rightbar profile={user} />
                     <Feed id={id} />
                 </div>

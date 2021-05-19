@@ -33,7 +33,7 @@ const logoutUser = async (req, res) => {
 }
 const updateUser = async (req, res) => {
     const updates = Object.keys(req.body);
-    const allowedUpdates = ['email', 'password'];
+    const allowedUpdates = ['email', 'password', 'city', 'from', 'languages', 'hobbies', 'profilePicture', 'desc'];
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update));
     if (!isValidOperation) return res.status(400).send({ error: 'Invalid updates' });
     try {
@@ -143,6 +143,7 @@ const updateUserProfile = async (req, res) => {
         res.status(500).json(err)
     }
 }
+
 module.exports = {
     getUser,
     findUser,

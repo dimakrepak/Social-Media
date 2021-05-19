@@ -20,7 +20,8 @@ const userSchema = mongoose.Schema({
     desc: { type: String, max: 100 },
     city: { type: String, max: 50 },
     from: { type: String, max: 50 },
-    relationship: { type: Number, num: [1, 2, 3] },
+    languages: { type: String, max: 50 },
+    hobbies: { type: String, max: 50 },
     tokens: [{
         token: { type: String, required: true }
     }]

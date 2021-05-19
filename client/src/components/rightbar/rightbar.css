@@ -59,12 +59,15 @@
   border: 2px solid rgb(240, 242, 245);
 }
 .profile-rightbar__intro {
+  display: flex;
+  flex-flow: column;
   padding: 15px;
   border-radius: 5px;
   background-color: rgb(255, 255, 255);
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
     rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  position: relative;
 }
 .profile-rightbar-info__item {
   /* width: 95%; */
@@ -127,4 +130,41 @@
 }
 .follow-btn:hover {
   background-color: rgb(0, 108, 231);
+}
+.profile-rightbar-info__edit {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px rgb(0, 0, 0, 0.1) solid;
+}
+.profile-rightbar-info__edit:hover {
+  background-color: rgb(209, 233, 255);
+}
+.profile-rightbar-info__edit:hover > .profile-rightbar-info__edit-icon {
+  color: rgb(15, 135, 255);
+}
+.profile-rightbar-info__save {
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 40px;
+  border: 1px rgb(0, 0, 0, 0.1) solid;
+  border-radius: 40px;
+  cursor: pointer;
+  background-color: rgb(48, 192, 55);
+  color: rgb(255, 255, 255);
+  font-weight: 500;
+  font-size: 15px;
+}
+.profile-rightbar-info__save:hover {
+  background-color: rgb(0, 181, 1);
+}
+.profile-info__value{
+  font-weight: 500;
 }

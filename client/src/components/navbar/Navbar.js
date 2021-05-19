@@ -49,8 +49,8 @@ export default function Navbar() {
                         <div className="navbar__center-dropdown">
                             <ul className="navbar__center-results">
                                 {users.map(user => (
-                                    <Link className="router-link" to={user._id === currentUser.user._id ? `/profile/me` : `/profile/${user._id}`}>
-                                        <li className="navbar__center-dropdown-friend" key={user._id}>
+                                    <Link className="router-link" key={user._id} to={user._id === currentUser.user._id ? `/profile/me` : `/profile/${user._id}`}>
+                                        <li className="navbar__center-dropdown-friend">
                                             <div className="navbar__center-img-container">
                                                 <img
                                                     className="navbar__center-img"

@@ -5,6 +5,7 @@ import Post from '../post/Post';
 import Share from '../share/Share';
 import './feed.css';
 import axios from 'axios'
+import { italic } from 'chalk';
 
 export default function Feed({ id }) {
     const [posts, setPosts] = useState([]);
@@ -36,7 +37,7 @@ export default function Feed({ id }) {
     }
     useEffect(() => {
         fetchPosts();
-    }, [id, currentUser])
+    }, [id])
     return (
         <div className="feed-container">
             {(id === currentUser.user._id || id === 'me' || !id) &&
@@ -45,7 +46,7 @@ export default function Feed({ id }) {
             {loading ?
                 <CircularProgress />
                 : posts.length === 0 ?
-                    <span className="empty-feed">No Posts Yet</span>
+                    <span className="empty-feed" style={{ fontStyle: 'italic', marginTop: '50px' }}>No Posts Yet</span>
                     :
                     posts.map((p) => {
                         return (
