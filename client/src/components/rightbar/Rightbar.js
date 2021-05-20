@@ -53,10 +53,10 @@ export default function Rightbar({ profile }) {
         const [editMode, setEditMode] = useState(false);
         const [introEdit, setIntroEdit] = useState({
 
-            city: `${currentUser.user.city}`,
-            from: `${currentUser.user.from}`,
-            languages: `${currentUser.user.languages}`,
-            hobbies: `${currentUser.user.hobbies}`,
+            city: `${currentUser.user.city || ''}`,
+            from: `${currentUser.user.from || ''}`,
+            languages: `${currentUser.user.languages || ''}`,
+            hobbies: `${currentUser.user.hobbies || ''}`,
         })
         const handleEditChange = (e) => {
             setIntroEdit({
@@ -67,10 +67,10 @@ export default function Rightbar({ profile }) {
         const handleEditModeClick = async () => {
             setEditMode(!editMode)
             setIntroEdit({
-                city: `${currentUser.user.city}`,
-                from: `${currentUser.user.from}`,
-                languages: `${currentUser.user.languages}`,
-                hobbies: `${currentUser.user.hobbies}`,
+                city: `${currentUser.user.city || ''}`,
+                from: `${currentUser.user.from || ''}`,
+                languages: `${currentUser.user.languages || ''}`,
+                hobbies: `${currentUser.user.hobbies || ''}`,
             })
         }
         const handleSaveModeClick = async () => {
