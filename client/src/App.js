@@ -24,7 +24,7 @@ function App() {
         </Route>
 
         <Route path="/register">
-          {currentUser ? <Redirect to="/" /> : <Register />}
+          {currentUser ? <Redirect to="/profile/me" /> : <Register />}
         </Route>
 
         <Route path="/profile/:id">
