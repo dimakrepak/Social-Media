@@ -78,12 +78,11 @@ export default function Rightbar({ profile }) {
         }
         const fetchFriends = async () => {
             try {
-                const friendsRes = await axios.get(`/api/friends/${profile?._id}`, {
+                const friendsRes = await axios.get(`/api/friends/${profile._id}`, {
                     headers: {
                         'Auth': `Bearer ${currentUser.token}`
                     }
                 })
-                console.log(friendsRes.data);
                 setFriends(friendsRes.data)
             } catch (err) {
                 console.log(err)

@@ -22,6 +22,7 @@ export default function Profile() {
     useEffect(() => {
         if (id === 'me') {
             setUser(currentUser.user)
+            console.log('currentUser', currentUser.user);
         } else {
             const fetchUser = async () => {
                 try {
@@ -34,8 +35,7 @@ export default function Profile() {
             };
             fetchUser();
         }
-    }, [id]);
-    console.log('User Check line 38', user)
+    }, [id, currentUser]);
     useEffect(() => {
         if (file) {
             new Compressor(file, {
@@ -44,35 +44,22 @@ export default function Profile() {
                     const reader = new FileReader();
                     reader.readAsDataURL(res)
                     reader.onloadend = () => {
-                        updateProfilePicture(reader.result)
-                        dispatch({ type: 'UPDATE', payload: reader.result })
-                        window.location.reload();
+                        updateUser(currentUser.token, ({ profilePicture: reader.result }), dispatch)
+
+                        // window.location.reload();
                     }
                 }
             })
         }
     }, [file])
-    const updateProfilePicture = async (data) => {
-        try {
-            await axios.post(`/api/user/update`, ({ image: data }), {
-                headers: {
-                    'Auth': `Bearer ${currentUser.token}`,
-                }
-            })
-        } catch (err) {
-            console.log(err)
-        }
-    }
 
     const handleEditProfile = () => {
         setEditMode(true);
     }
-    const handleSaveProfile = () => {
+    const handleSaveProfile = async () => {
         if (currentUser.user.desc !== desc) {
             updateUser(currentUser.token, ({ desc }), dispatch)
-            console.log(currentUser.user);
         }
-        // setUser(currentUser.user)
         setEditMode(false);
     }
 
@@ -112,10 +99,13 @@ export default function Profile() {
                             :
                             <EditInput profileEdit="profileStatusEdit" inputValue={desc} onChange={(e) => setDesc(e.target.value)} />
                         }
-                        {!editMode ?
-                            <span className="profile-add-status" onClick={handleEditProfile}>Add Status</span>
-                            :
-                            <span className="profile-add-status" onClick={handleSaveProfile}>Save</span>
+                        {currentUser.user._id === user._id &&
+                            (
+                                !editMode ?
+                                    <span className="profile-add-status" onClick={handleEditProfile}>Add Status</span>
+                                    :
+                                    <span className="profile-add-status" onClick={handleSaveProfile}>Save</span>
+                            )
                         }
                     </div>
                 </div>

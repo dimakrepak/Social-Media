@@ -15,23 +15,23 @@ export default function Post({ post }) {
 
     const fetchUsers = async () => {
         try {
-            const res = await axios.get(`/api/user?id=${post.owner}`);
-            setUser(res.data)
+            if (post.owner === currentUser.user._id) {
+                setUser(currentUser.user)
+            } else {
+                try {
+                    const res = await axios.get(`/api/user?id=${post.owner}`);
+                    setUser(res.data)
+                } catch (err) {
+                    console.log(err)
+                }
+            }
         } catch (err) {
             console.log(err);
         }
     }
-    // const fetchPost = async () => {
-    //     try {
-    //         const res = await axios.get(`/api/post/${post._id}`);
-    //         setCurrentPost(res.data);
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // }
     useEffect(() => {
         fetchUsers();
-    }, [post.owner])
+    }, [post.owner, currentUser])
 
     useEffect(() => {
         setIsLiked(post.likes.includes(currentUser.user._id))
