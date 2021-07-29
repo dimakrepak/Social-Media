@@ -78,6 +78,7 @@
   width: 35px;
   height: 35px;
   border-radius: 50%;
+  object-fit: cover;
 }
 .result-friend_username {
   font-size: 14px;
