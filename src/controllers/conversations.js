@@ -11,10 +11,10 @@ async function createConversation(req, res) {
     res.status(500).json(err);
   }
 }
-async function getConversation(req, res) {
+async function getUserConversation(req, res) {
   try {
     const conversation = await ConversationModel.find({
-      members: { $in: [req.params.userId] },
+      members: { $in: [req.user._id.toString()] },
     });
     res.status(200).json(conversation);
   } catch (err) {
@@ -23,5 +23,5 @@ async function getConversation(req, res) {
 }
 module.exports = {
   createConversation,
-  getConversation
+  getUserConversation,
 };

@@ -34,9 +34,9 @@ router
   .get("/posts/timeline/me", auth, postController.getUserTimeline)
   //Messages
   .post("/messages/create", messageController.createMessage)
-  .get("/messages/:convId", messageController.getMessage)
+  .get("/messages/:convId", messageController.getMessages)
   //Conversations
   .post("/conversation/create", conversationController.createConversation)
-  .get("/conversation/:userId", conversationController.getConversation);
+  .get("/conversations/me", auth, conversationController.getUserConversation);
 
 module.exports = router;

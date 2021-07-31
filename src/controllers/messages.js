@@ -9,9 +9,9 @@ async function createMessage(req, res) {
     res.status(500).json(err);
   }
 }
-async function getMessage(req, res) {
+async function getMessages(req, res) {
   try {
-    const messages = await new MessagesModel.find({
+    const messages = await MessagesModel.find({
       conversationId: req.params.convId,
     });
     res.status(200).json(messages);
@@ -21,5 +21,5 @@ async function getMessage(req, res) {
 }
 module.exports = {
   createMessage,
-  getMessage,
+  getMessages,
 };
