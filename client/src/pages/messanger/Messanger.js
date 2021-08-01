@@ -9,17 +9,15 @@ import Conversation from "../../components/conversations/Conversation";
 export default function Messanger() {
   const { currentUser } = useContext(AuthContext);
   const [conversations, setConversations] = useState([]);
-
+  const [messages, setMessages] = useState([]);
+  const [currentChat, setCurrentChat] = useState({});
   async function getConversation() {
     try {
-      const res = await axios.get(
-        "http://localhost:8000/api/conversations/me",
-        {
-          headers: {
-            Auth: `Bearer ${currentUser.token}`,
-          },
-        }
-      );
+      const res = await axios.get("/api/conversations/me", {
+        headers: {
+          Auth: `Bearer ${currentUser.token}`,
+        },
+      });
       setConversations(res.data);
     } catch (err) {
       console.log(err);
@@ -28,6 +26,19 @@ export default function Messanger() {
   useEffect(() => {
     getConversation();
   }, []);
+
+  useEffect(() => {
+    async function getMessages() {
+      try {
+        const res = await axios.get("api/messages/" + currentChat);
+        setMessages(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getMessages();
+  }, [currentChat]);
+  console.log(messages);
   return (
     <>
       <Navbar />
@@ -35,19 +46,22 @@ export default function Messanger() {
         <div className="chatMenu">
           <div className="chatMenuWrapper">
             {conversations.map((c) => (
-              <Conversation
-                conversation={c}
-                key={c._id}
-                currentUser={currentUser}
-              />
+              <div onClick={() => setCurrentChat(c._id)} key={c._id}>
+                <Conversation conversation={c} currentUser={currentUser} />
+              </div>
             ))}
           </div>
         </div>
+
         <div className="chatBox">
           <div className="chatBoxWrapper">
-            <Message own />
-            <Message />
-            <Message own />
+            {messages.map((message) => (
+              <Message
+                message={message}
+                key={message._id}
+                own={message.sender === currentUser.user._id}
+              />
+            ))}
             <input type="text" />
             <button>Send</button>
           </div>

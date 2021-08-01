@@ -3,7 +3,7 @@ import "./conversation.css";
 import { useContext, useState, useEffect } from "react";
 
 export default function Conversation({ conversation, currentUser }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState("");
   useEffect(() => {
     const friendId = conversation?.members.find(
       (m) => m !== currentUser.user._id
@@ -11,14 +11,12 @@ export default function Conversation({ conversation, currentUser }) {
     const getUser = async () => {
       try {
         const res = await axios.get("/api/user?id=" + friendId);
-        console.log("res", res);
         setUser(res.data);
       } catch (err) {
         console.log(err);
       }
     };
     getUser();
-    console.log(friendId);
   }, [conversation]);
 
   return (

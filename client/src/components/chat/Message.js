@@ -1,6 +1,6 @@
 import "./message.css";
 
-export default function Message({ own }) {
+export default function Message({ message, own }) {
   return (
     <div className={`message ${own && "messageOwn"}`}>
       <div className="messageTop">
@@ -11,9 +11,9 @@ export default function Message({ own }) {
         />
       </div>
       <div className="messageValue">
-        <p>Hello first message</p>
+        <span>{message.text}</span>
         <div className="messageProp">
-          <p className="messageTimeAgo">1 minute ago</p>
+          <span className="messageTimeAgo">{message.createdAt}</span>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 .message {
   display: flex;
   flex-direction: column;
-  
+  margin: 10px;
 }
 .messageImg {
   width: 32px;
@@ -11,19 +11,18 @@
 }
 .messageValue {
   background-color: rgb(82, 171, 250);
-  width: 60%;
-  padding: 10px;
+  width: 50%;
+  padding: 5px 10px;
   border-radius: 15px;
   color: white;
 }
 .messageProp {
   width: 100%;
-  font-size: 12px;
   display: flex;
   justify-content: flex-end;
 }
 .messageTimeAgo {
-  display: block;
+  font-size: 10px;
 }
 .messageOwn {
   align-items: flex-end;
