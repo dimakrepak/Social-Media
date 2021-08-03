@@ -16,4 +16,8 @@
 .chatOnlineWrapper {
   padding: 10px;
   height: 100%;
+  overflow: auto;
+}
+.messangerInput {
+  width: 80%;
 }

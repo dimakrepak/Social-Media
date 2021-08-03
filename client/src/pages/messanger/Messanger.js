@@ -1,6 +1,6 @@
 import axios from "axios";
 import "./messanger.css";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import Navbar from "../../components/navbar/Navbar";
 import Message from "../../components/chat/Message";
@@ -11,6 +11,8 @@ export default function Messanger() {
   const [conversations, setConversations] = useState([]);
   const [messages, setMessages] = useState([]);
   const [currentChat, setCurrentChat] = useState({});
+  const [newMessage, setNewMessage] = useState("");
+  const scrollRef = useRef();
   async function getConversation() {
     try {
       const res = await axios.get("/api/conversations/me", {
@@ -38,7 +40,29 @@ export default function Messanger() {
     }
     getMessages();
   }, [currentChat]);
-  console.log(messages);
+
+  async function handleChatSendButton(e) {
+    e.preventDefault();
+    const message = {
+      sender: currentUser.user._id,
+      text: newMessage,
+      conversationId: currentChat,
+    };
+    try {
+      const res = await axios.post("/api/messages/create", message, {
+        headers: { Auth: currentUser.token },
+      });
+      setMessages([...messages, res.data]);
+      setNewMessage("");
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  useEffect(() => {
+    // console.log(scrollRef);
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   return (
     <>
       <Navbar />
@@ -56,15 +80,23 @@ export default function Messanger() {
         <div className="chatBox">
           <div className="chatBoxWrapper">
             {messages.map((message) => (
-              <Message
-                message={message}
-                key={message._id}
-                own={message.sender === currentUser.user._id}
-              />
+              <div ref={scrollRef} key={message._id}>
+                <Message
+                  message={message}
+                  own={message.sender === currentUser.user._id}
+                />
+              </div>
             ))}
-            <input type="text" />
-            <button>Send</button>
           </div>
+          <input
+            className="chatMessangerInput"
+            type="text"
+            value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
+          />
+          <button className="chatSendButton" onClick={handleChatSendButton}>
+            Send
+          </button>
         </div>
         <div className="chatOnline">
           <div className="chatOnlineWrapper">Online</div>

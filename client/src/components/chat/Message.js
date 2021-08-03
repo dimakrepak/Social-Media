@@ -1,4 +1,5 @@
 import "./message.css";
+import { format } from "timeago.js";
 
 export default function Message({ message, own }) {
   return (
@@ -13,7 +14,7 @@ export default function Message({ message, own }) {
       <div className="messageValue">
         <span>{message.text}</span>
         <div className="messageProp">
-          <span className="messageTimeAgo">{message.createdAt}</span>
+          <span className="messageTimeAgo">{format(message.createdAt)}</span>
         </div>
       </div>
     </div>
