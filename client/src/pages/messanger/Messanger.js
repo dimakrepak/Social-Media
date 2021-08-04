@@ -5,6 +5,7 @@ import { AuthContext } from "../../context/AuthContext";
 import Navbar from "../../components/navbar/Navbar";
 import Message from "../../components/chat/Message";
 import Conversation from "../../components/conversations/Conversation";
+import { io } from "socket.io-client";
 
 export default function Messanger() {
   const { currentUser } = useContext(AuthContext);
@@ -12,6 +13,7 @@ export default function Messanger() {
   const [messages, setMessages] = useState([]);
   const [currentChat, setCurrentChat] = useState({});
   const [newMessage, setNewMessage] = useState("");
+  const [socket, setSocket] = useState(null);
   const scrollRef = useRef();
   async function getConversation() {
     try {
@@ -32,7 +34,7 @@ export default function Messanger() {
   useEffect(() => {
     async function getMessages() {
       try {
-        const res = await axios.get("api/messages/" + currentChat);
+        const res = await axios.get("api/messages/" + currentChat._id);
         setMessages(res.data);
       } catch (err) {
         console.log(err);
@@ -46,8 +48,13 @@ export default function Messanger() {
     const message = {
       sender: currentUser.user._id,
       text: newMessage,
-      conversationId: currentChat,
+      conversationId: currentChat._id,
     };
+    socket?.emit("sendMessage", {
+      sender_id: currentUser.user._id,
+      receiver_id: currentChat.members.find((m) => m !== currentUser.user._id),
+      text: newMessage,
+    });
     try {
       const res = await axios.post("/api/messages/create", message, {
         headers: { Auth: currentUser.token },
@@ -63,6 +70,18 @@ export default function Messanger() {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  useEffect(() => {
+    setSocket(io("ws://localhost:8900"));
+  }, []);
+
+  useEffect(() => {
+    socket?.emit("addUser", currentUser.user._id);
+    socket?.on("getOnlineUsers", (users) => {
+      console.log(socket.id);
+      console.log(users);
+    });
+  }, [socket]);
+
   return (
     <>
       <Navbar />
@@ -70,7 +89,7 @@ export default function Messanger() {
         <div className="chatMenu">
           <div className="chatMenuWrapper">
             {conversations.map((c) => (
-              <div onClick={() => setCurrentChat(c._id)} key={c._id}>
+              <div onClick={() => setCurrentChat(c)} key={c._id}>
                 <Conversation conversation={c} currentUser={currentUser} />
               </div>
             ))}

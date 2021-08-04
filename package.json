@@ -1,14 +1,15 @@
 {
   "name": "boilerplate",
   "version": "1.0.0",
-  "description": "",
+  "description": "https://socialmedia-dimkre.herokuapp.com/",
   "main": "server.js",
   "scripts": {
     "client-install": "cd client && npm install",
     "start": "node ./src/server.js",
     "server": "nodemon ./src/server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "socket": "nodemon ./socket/index.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\" \"npm run socket\" ",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
@@ -29,5 +30,13 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dimakrepak/Social-Media.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dimakrepak/Social-Media/issues"
+  },
+  "homepage": "https://github.com/dimakrepak/Social-Media#readme"
 }
