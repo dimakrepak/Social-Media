@@ -14,7 +14,8 @@ export default function Messanger() {
   const [currentChat, setCurrentChat] = useState({});
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const [newMessage, setNewMessage] = useState("");
-  const [socket, setSocket] = useState(io("ws://localhost:8900"));
+  // const [socket, setSocket] = useState(io("ws://localhost:8900"));
+  const socket = useRef(io("ws://localhost:8900"));
   const scrollRef = useRef();
   async function getConversation() {
     try {
@@ -51,7 +52,7 @@ export default function Messanger() {
       text: newMessage,
       conversationId: currentChat._id,
     };
-    socket?.emit("sendMessage", {
+    socket.current.emit("sendMessage", {
       sender_id: currentUser.user._id,
       receiver_id: currentChat?.members.find((m) => m !== currentUser.user._id),
       text: newMessage,
@@ -71,16 +72,15 @@ export default function Messanger() {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-
   useEffect(() => {
-    socket?.emit("addUser", currentUser.user._id);
-    socket?.on("getOnlineUsers", (users) => {
-      console.log(socket.id);
+    socket.current.emit("addUser", currentUser.user._id);
+    socket.current.on("getOnlineUsers", (users) => {
+      console.log(socket.current.id);
       console.log(users);
     });
-  }, [socket]);
+  }, [socket.current]);
   useEffect(() => {
-    socket?.on("getMessage", (message) => {
+    socket.current.on("getMessage", (message) => {
       console.log(message);
       setArrivalMessage({
         sender: message.sender_id,
@@ -116,6 +116,7 @@ export default function Messanger() {
             {messages.map((message) => (
               <div ref={scrollRef} key={message._id}>
                 <Message
+                  key={message._id}
                   message={message}
                   own={message.sender === currentUser.user._id}
                 />
