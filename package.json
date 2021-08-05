@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "client-install": "cd client && npm install",
-    "start": "node ./src/server.js",
+    "start": "nodemon ./src/server.js",
     "server": "nodemon ./src/server.js",
     "client": "npm start --prefix client",
     "socket": "nodemon ./socket/index.js",

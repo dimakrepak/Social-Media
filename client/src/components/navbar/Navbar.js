@@ -99,7 +99,9 @@ export default function Navbar() {
             <Notifications className="navbar-icons__icon-material" />
           </div>
           <div className="navbar-icons__icon">
-            <SendRounded className="navbar-icons__icon-material" />
+            <Link className="navbar-home__link" to="/messanger">
+              <SendRounded className="navbar-icons__icon-material" />
+            </Link>
           </div>
         </div>
         <div className="navbar-profile-navbar__container">

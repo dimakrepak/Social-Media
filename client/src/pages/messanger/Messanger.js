@@ -12,8 +12,9 @@ export default function Messanger() {
   const [conversations, setConversations] = useState([]);
   const [messages, setMessages] = useState([]);
   const [currentChat, setCurrentChat] = useState({});
+  const [arrivalMessage, setArrivalMessage] = useState(null);
   const [newMessage, setNewMessage] = useState("");
-  const [socket, setSocket] = useState(null);
+  const [socket, setSocket] = useState(io("ws://localhost:8900"));
   const scrollRef = useRef();
   async function getConversation() {
     try {
@@ -52,7 +53,7 @@ export default function Messanger() {
     };
     socket?.emit("sendMessage", {
       sender_id: currentUser.user._id,
-      receiver_id: currentChat.members.find((m) => m !== currentUser.user._id),
+      receiver_id: currentChat?.members.find((m) => m !== currentUser.user._id),
       text: newMessage,
     });
     try {
@@ -70,9 +71,6 @@ export default function Messanger() {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  useEffect(() => {
-    setSocket(io("ws://localhost:8900"));
-  }, []);
 
   useEffect(() => {
     socket?.emit("addUser", currentUser.user._id);
@@ -81,7 +79,24 @@ export default function Messanger() {
       console.log(users);
     });
   }, [socket]);
-
+  useEffect(() => {
+    socket?.on("getMessage", (message) => {
+      console.log(message);
+      setArrivalMessage({
+        sender: message.sender_id,
+        text: message.text,
+        createdAt: Date.now(),
+      });
+    });
+  }, []);
+  useEffect(() => {
+    if (
+      arrivalMessage &&
+      currentChat?.members.includes(arrivalMessage.sender)
+    ) {
+      setMessages((prev) => [...prev, arrivalMessage]);
+    }
+  }, [arrivalMessage, currentChat]);
   return (
     <>
       <Navbar />

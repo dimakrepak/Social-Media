@@ -5,9 +5,9 @@ const io = require("socket.io")(8900, {
 });
 let users = [];
 
-function add_user(user_id, socket_id, users_array) {
-  if (!users_array.some((user) => user.user_id === user_id)) {
-    users_array.push({ user_id, socket_id });
+function add_user(user_id, socket_id) {
+  if (!users.some((user) => user.user_id === user_id)) {
+    users.push({ user_id, socket_id });
   }
 }
 function remove_user(socket_id) {
@@ -18,7 +18,7 @@ io.on("connection", (socket) => {
   //Connection
   //Take current user ID and current socket ID from client/user
   socket.on("addUser", (current_user_id) => {
-    add_user(current_user_id, socket.id, users);
+    add_user(current_user_id, socket.id);
     console.log("User connected successfully");
     io.emit("getOnlineUsers", users);
   });
@@ -30,8 +30,10 @@ io.on("connection", (socket) => {
   });
   //Send Message
   socket.on("sendMessage", ({ sender_id, receiver_id, text }) => {
-    const user = users.find((u) => u.id == receiver_id);
-    io.to(user.socket_id).emit("getMessage", {
+    const user = users.find((u) => u.user_id === receiver_id);
+    console.log(receiver_id);
+    console.log(user);
+    io.to(user?.socket_id).emit("getMessage", {
       sender_id,
       text,
     });
