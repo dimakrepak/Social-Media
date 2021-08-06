@@ -6,6 +6,7 @@ import Navbar from "../../components/navbar/Navbar";
 import Message from "../../components/chat/Message";
 import Conversation from "../../components/conversations/Conversation";
 import { io } from "socket.io-client";
+import ChatOnline from "../../components/ChatOnline/ChatOnline";
 
 export default function Messanger() {
   const { currentUser } = useContext(AuthContext);
@@ -14,7 +15,7 @@ export default function Messanger() {
   const [currentChat, setCurrentChat] = useState({});
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const [newMessage, setNewMessage] = useState("");
-  // const [socket, setSocket] = useState(io("ws://localhost:8900"));
+  const [onlineUsers, setOnlineUsers] = useState([]);
   const socket = useRef(io("ws://localhost:8900"));
   const scrollRef = useRef();
   async function getConversation() {
@@ -76,7 +77,13 @@ export default function Messanger() {
     socket.current.emit("addUser", currentUser.user._id);
     socket.current.on("getOnlineUsers", (users) => {
       console.log(socket.current.id);
+      users = users.map((user) => user.user_id);
       console.log(users);
+      setOnlineUsers(
+        currentUser.user.following.filter((friendId) =>
+          users.includes(friendId)
+        )
+      );
     });
   }, [socket.current]);
   useEffect(() => {
@@ -134,7 +141,13 @@ export default function Messanger() {
           </button>
         </div>
         <div className="chatOnline">
-          <div className="chatOnlineWrapper">Online</div>
+          <div className="chatOnlineWrapper">
+            <ChatOnline
+              onlineUsers={onlineUsers}
+              currentUser={currentUser}
+              setCurrentChat={setCurrentChat}
+            />
+          </div>
         </div>
       </div>
     </>
