@@ -39,6 +39,7 @@
   margin-right: 5px;
 }
 .right-bar__online-friend {
+  cursor: pointer;
   display: flex;
   align-items: center;
   margin-top: 10px;

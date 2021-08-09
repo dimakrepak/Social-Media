@@ -30,7 +30,7 @@ export default function ChatOnline({
     setOnlineFriends(
       friends.filter((friend) => onlineUsers.includes(friend._id))
     );
-  }, [onlineUsers]);
+  }, [onlineUsers, friends]);
   console.log("users from socket", onlineUsers);
   return (
     <>

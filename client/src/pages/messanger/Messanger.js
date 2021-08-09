@@ -77,11 +77,11 @@ export default function Messanger() {
     socket.current.emit("addUser", currentUser.user._id);
     socket.current.on("getOnlineUsers", (users) => {
       console.log(socket.current.id);
-      users = users.map((user) => user.user_id);
+
       console.log(users);
       setOnlineUsers(
         currentUser.user.following.filter((friendId) =>
-          users.includes(friendId)
+          users.some((user) => user.user_id === friendId)
         )
       );
     });
@@ -99,7 +99,7 @@ export default function Messanger() {
   useEffect(() => {
     if (
       arrivalMessage &&
-      currentChat?.members.includes(arrivalMessage.sender)
+      currentChat?.members?.includes(arrivalMessage.sender)
     ) {
       setMessages((prev) => [...prev, arrivalMessage]);
     }
