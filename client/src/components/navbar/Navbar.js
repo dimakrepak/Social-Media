@@ -56,16 +56,16 @@ export default function Navbar() {
             <div className="navbar__center-dropdown">
               <ul className="navbar__center-results">
                 {users.map((user) => (
-                  <Link
-                    className="router-link"
-                    key={user._id}
-                    to={
-                      user._id === currentUser.user._id
-                        ? `/profile/me`
-                        : `/profile/${user._id}`
-                    }
-                  >
-                    <li className="navbar__center-dropdown-friend">
+                  <li className="navbar__center-dropdown-friend">
+                    <Link
+                      className="router-link"
+                      key={user._id}
+                      to={
+                        user._id === currentUser.user._id
+                          ? `/profile/me`
+                          : `/profile/${user._id}`
+                      }
+                    >
                       <div className="navbar__center-img-container">
                         <img
                           className="navbar__center-img"
@@ -79,8 +79,9 @@ export default function Navbar() {
                       <span className="result-friend_username">
                         {user.username}
                       </span>
-                    </li>
-                  </Link>
+                    </Link>
+                    <button>Send Message</button>
+                  </li>
                 ))}
               </ul>
             </div>

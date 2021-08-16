@@ -171,14 +171,12 @@ export default function Messanger() {
             </div>
           </div>
         ) : (
-          <div className="chatBox">
-            <span
-              className="empty-feed"
-              style={{ fontStyle: "italic", marginTop: "40px" }}
-            >
-              Choose Your Conversation
-            </span>
-          </div>
+          <span
+            className="empty-feed"
+            style={{ fontStyle: "italic", marginTop: "40px" }}
+          >
+            Choose Your Conversation
+          </span>
         )}
         <Rightbar />
       </div>

@@ -25,7 +25,7 @@ export default function Message({ message, own, currentUser, receiverUser }) {
           }
           alt=""
         />
-        <span>{user?.username}</span>
+        <span className="messageUsername">{own ? "" : user?.username}</span>
       </div>
       <div style={{ backgroundColor: own && "grey" }} className="messageValue">
         <span>{message.text}</span>

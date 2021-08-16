@@ -46,3 +46,6 @@
   cursor: not-allowed;
   background-color: rgb(197, 197, 197);
 }
+.empty-feed {
+  flex: 4;
+}
