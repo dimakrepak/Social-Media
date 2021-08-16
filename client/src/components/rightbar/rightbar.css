@@ -40,24 +40,40 @@
 }
 .right-bar__online-friend {
   cursor: pointer;
+  padding: 2px;
   display: flex;
   align-items: center;
   margin-top: 10px;
+  border-radius: 10px;
+  height: 60px;
+}
+.right-bar__online-friend:hover {
+  background-color: rgb(223, 223, 223);
 }
 .right-bar__profile-img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  object-fit: cover;
 }
-.right-bar__online {
-  width: 14px;
-  height: 14px;
-  background-color: rgb(95, 255, 47);
+.right-bar__status {
+  /* width: 14px; */
+  /* height: 14px; */
+  padding: 1px;
+  background-color: rgb(226, 226, 226);
   position: absolute;
-  right: -2px;
-  bottom: 2px;
-  border-radius: 50%;
+  left: 28px;
+  top: 28px;
+  border-radius: 12px;
   border: 2px solid rgb(240, 242, 245);
+  font-size: 10px;
+}
+.right-bar__status-online {
+  color: rgb(44, 187, 0);
+ 
+}
+.right-bar__status-offline {
+  
 }
 .profile-rightbar__intro {
   display: flex;
@@ -166,6 +182,6 @@
 .profile-rightbar-info__save:hover {
   background-color: rgb(0, 181, 1);
 }
-.profile-info__value{
+.profile-info__value {
   font-weight: 500;
 }
