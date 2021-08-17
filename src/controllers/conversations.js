@@ -16,7 +16,7 @@ async function createConversation(req, res) {
   console.log(isExistConversations);
   try {
     if (isExistConversations.length > 0) {
-      res.status(405).send();
+      res.status(200).json(isExistConversations[0]);
     } else {
       const savedConversation = await newConversation.save();
       res.status(200).json(savedConversation);

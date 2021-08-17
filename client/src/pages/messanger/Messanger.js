@@ -59,7 +59,7 @@ export default function Messanger() {
       }
     }
     getMessages();
-  }, [currentChat]);
+  }, [currentChat, renderConversation]);
 
   async function handleChatSendButton(e) {
     e.preventDefault();
@@ -127,6 +127,7 @@ export default function Messanger() {
     <>
       <Navbar
         setRenderConversation={setRenderConversation}
+        setCurrentChat={setCurrentChat}
         renderConversation={renderConversation}
       />
       <div className="messenger">

@@ -13,7 +13,11 @@ import {
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
-export default function Navbar({ setRenderConversation, renderConversation }) {
+export default function Navbar({
+  setRenderConversation,
+  renderConversation,
+  setCurrentChat,
+}) {
   const { currentUser, dispatch } = useContext(AuthContext);
   const [searchValue, setSearchValue] = useState("");
   const [users, setUsers] = useState([]);
@@ -40,9 +44,10 @@ export default function Navbar({ setRenderConversation, renderConversation }) {
         senderId: currentUser.user._id,
         receiverId: userId,
       });
-      console.log(res);
       if (res) {
+        setCurrentChat(res.data);
         setRenderConversation(!renderConversation);
+        console.log(res.data);
       }
     } catch (err) {
       console.log(err);
