@@ -62,14 +62,20 @@
   list-style: none;
 }
 .navbar__center-dropdown-friend {
-  padding:5px;
+  padding: 5px;
   margin: 5px 0;
   display: flex;
   align-items: center;
   border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
+  justify-content: space-between;
 }
 .navbar__center-dropdown-friend:hover {
   background-color: rgb(247, 247, 247);
+}
+.navbar__center-dropdown-link {
+  display: flex;
+  width: 80%;
+  align-items: center;
 }
 .navbar__center-img-container {
   margin-right: 5px;

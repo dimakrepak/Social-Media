@@ -72,7 +72,7 @@ export default function Navbar({ setRenderConversation, renderConversation }) {
                 {users.map((user) => (
                   <li className="navbar__center-dropdown-friend">
                     <Link
-                      className="router-link"
+                      className="router-link navbar__center-dropdown-link"
                       key={user._id}
                       to={
                         user._id === currentUser.user._id
@@ -94,9 +94,12 @@ export default function Navbar({ setRenderConversation, renderConversation }) {
                         {user.username}
                       </span>
                     </Link>
-                    <button onClick={() => createConversation(user?._id)}>
-                      Send Message
-                    </button>
+                    <Link to="/messanger">
+                      <SendRounded
+                        className="navbar-icons__icon-material"
+                        onClick={() => createConversation(user?._id)}
+                      />
+                    </Link>
                   </li>
                 ))}
               </ul>
