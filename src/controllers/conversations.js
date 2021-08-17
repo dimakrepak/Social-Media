@@ -1,14 +1,28 @@
 const ConversationModel = require("../models/conversation");
 
+function arrayEquals(a, b) {
+  if (a.length === b.length) {
+    return a.every((val) => b.includes(val));
+  }
+}
+
 async function createConversation(req, res) {
   const newConversation = new ConversationModel({
     members: [req.body.senderId, req.body.receiverId],
   });
+  const isExistConversations = await ConversationModel.find({
+    members: { $all: [req.body.senderId, req.body.receiverId] },
+  });
+  console.log(isExistConversations);
   try {
-    const savedConversation = await newConversation.save();
-    res.status(200).json(savedConversation);
+    if (isExistConversations.length > 0) {
+      res.status(405).send();
+    } else {
+      const savedConversation = await newConversation.save();
+      res.status(200).json(savedConversation);
+    }
   } catch (err) {
-    res.status(500).json(err + "");
+    res.status(500).json(err);
   }
 }
 async function getUserConversation(req, res) {

@@ -47,7 +47,7 @@ export default function Messanger() {
   }
   useEffect(() => {
     getConversation();
-  }, [renderConversation]);
+  }, [renderConversation, currentUser.user]);
 
   useEffect(() => {
     async function getMessages() {
