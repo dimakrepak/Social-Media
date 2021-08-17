@@ -5,7 +5,6 @@ const ConversationSchema = mongoose.Schema(
   {
     members: {
       type: Array,
-      unique: true,
     },
   },
   {

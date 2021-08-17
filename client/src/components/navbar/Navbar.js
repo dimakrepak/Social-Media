@@ -13,7 +13,7 @@ import {
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
-export default function Navbar() {
+export default function Navbar({ setRenderConversation, renderConversation }) {
   const { currentUser, dispatch } = useContext(AuthContext);
   const [searchValue, setSearchValue] = useState("");
   const [users, setUsers] = useState([]);
@@ -33,7 +33,21 @@ export default function Navbar() {
       fetchSearchUsers();
     }
   }, [searchValue]);
-
+  async function createConversation(userId) {
+    console.log(userId);
+    try {
+      const res = await axios.post(`/api/conversation/create`, {
+        senderId: currentUser.user._id,
+        receiverId: userId,
+      });
+      console.log(res);
+      if (res) {
+        setRenderConversation(!renderConversation);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
   return (
     <div className="navbar-container">
       <div className="navbar__left">
@@ -80,7 +94,9 @@ export default function Navbar() {
                         {user.username}
                       </span>
                     </Link>
-                    <button>Send Message</button>
+                    <button onClick={() => createConversation(user?._id)}>
+                      Send Message
+                    </button>
                   </li>
                 ))}
               </ul>

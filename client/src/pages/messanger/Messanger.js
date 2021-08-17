@@ -17,6 +17,7 @@ export default function Messanger() {
   const [newMessage, setNewMessage] = useState("");
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [currentChatReceiver, setCurrentChatReceiver] = useState(null);
+  const [renderConversation, setRenderConversation] = useState(false);
   const socket = useRef(io("ws://localhost:8900"));
   const scrollRef = useRef();
 
@@ -46,7 +47,7 @@ export default function Messanger() {
   }
   useEffect(() => {
     getConversation();
-  }, []);
+  }, [renderConversation]);
 
   useEffect(() => {
     async function getMessages() {
@@ -121,9 +122,13 @@ export default function Messanger() {
       setMessages((prev) => [...prev, arrivalMessage]);
     }
   }, [arrivalMessage, currentChat]);
+  console.log("render", renderConversation);
   return (
     <>
-      <Navbar />
+      <Navbar
+        setRenderConversation={setRenderConversation}
+        renderConversation={renderConversation}
+      />
       <div className="messenger">
         <div className="chatMenu">
           <div className="chatMenuWrapper">

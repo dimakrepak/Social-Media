@@ -8,7 +8,7 @@ async function createConversation(req, res) {
     const savedConversation = await newConversation.save();
     res.status(200).json(savedConversation);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json(err + "");
   }
 }
 async function getUserConversation(req, res) {
