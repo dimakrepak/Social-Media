@@ -20,6 +20,7 @@ export default function Messanger() {
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [currentChatReceiver, setCurrentChatReceiver] = useState(null);
   const [renderConversation, setRenderConversation] = useState(false);
+  const messangerMode = useRef(true);
   const socket = useRef(io("ws://localhost:8900"));
   const scrollRef = useRef();
 
@@ -34,8 +35,14 @@ export default function Messanger() {
       }
       getUser();
     }
-    console.log("location state", location.state);
+    console.log("current chat", currentChat);
+    console.log("receiver", receiver_id);
   }, [currentChat]);
+
+  useEffect(() => {
+    setCurrentChat(location.state);
+  }, [location]);
+
   async function getConversation() {
     try {
       const res = await axios.get("/api/conversations/me", {
@@ -56,7 +63,7 @@ export default function Messanger() {
     async function getMessages() {
       try {
         const res = await axios.get("api/messages/" + currentChat._id);
-        setMessages(res.data);
+        setMessages(res?.data);
       } catch (err) {
         console.log(err);
       }
@@ -94,8 +101,6 @@ export default function Messanger() {
   useEffect(() => {
     socket.current.emit("addUser", currentUser.user._id);
     socket.current.on("getOnlineUsers", (users) => {
-      console.log(socket.current.id);
-      console.log("users", users);
       setOnlineUsers(users);
     });
     return () => {
@@ -110,11 +115,6 @@ export default function Messanger() {
         createdAt: Date.now(),
       });
     });
-    return function cleanup() {
-      socket.current.on("disconnect", () => {
-        console.log("user disconnected", socket.current.id);
-      });
-    };
   }, []);
   useEffect(() => {
     if (
@@ -131,6 +131,7 @@ export default function Messanger() {
         setRenderConversation={setRenderConversation}
         setCurrentChat={setCurrentChat}
         renderConversation={renderConversation}
+        messangerMode={messangerMode?.current}
       />
       <div className="messenger">
         <div className="chatMenu">

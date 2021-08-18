@@ -6,14 +6,14 @@ import { format } from "timeago.js";
 export default function Message({ message, own, currentUser, receiverUser }) {
   const [user, setUser] = useState(null);
   useEffect(() => {
-    if (currentUser && receiverUser) {
-      if (own) {
-        setUser(currentUser.user);
-      } else {
+    if (own) {
+      setUser(currentUser.user);
+    } else {
+      if (receiverUser) {
         setUser(receiverUser);
       }
     }
-  }, []);
+  }, [message, own, receiverUser]);
   return (
     <div className={`message ${own && "messageOwn"}`}>
       <div className="messageTop">

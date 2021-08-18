@@ -11,17 +11,18 @@ import {
   HomeRounded,
   ExitToAppRounded,
 } from "@material-ui/icons";
-import { Link, Redirect } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 export default function Navbar({
   setRenderConversation,
   renderConversation,
-  setCurrentChat,
+  messangerMode,
 }) {
   const { currentUser, dispatch } = useContext(AuthContext);
   const [searchValue, setSearchValue] = useState("");
   const [users, setUsers] = useState([]);
-  const [chat, setChat] = useState(null);
+
+  const history = useHistory();
 
   const handleLogOutClick = async () => logoutPost(currentUser.token, dispatch);
   const fetchSearchUsers = async () => {
@@ -38,6 +39,7 @@ export default function Navbar({
       fetchSearchUsers();
     }
   }, [searchValue]);
+
   async function createConversation(userId) {
     try {
       const res = await axios.post(`/api/conversation/create`, {
@@ -45,9 +47,8 @@ export default function Navbar({
         receiverId: userId,
       });
       if (res) {
-        setCurrentChat(res.data);
-        setChat(res.data);
-        setRenderConversation(!renderConversation);
+        if (messangerMode) setRenderConversation(!renderConversation);
+        history.push({ pathname: "/messanger", state: res.data });
       }
     } catch (err) {
       console.log(err);
@@ -102,10 +103,7 @@ export default function Navbar({
                     <SendRounded
                       className="navbar-icons__icon-material"
                       onClick={() => createConversation(user?._id)}
-                      />
-                      {chat !== null && (
-                        <Redirect to={{ pathname: "/messanger", state: chat }} />
-                      )}
+                    />
                   </li>
                 ))}
               </ul>
