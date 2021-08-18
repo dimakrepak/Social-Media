@@ -1,11 +1,5 @@
 const ConversationModel = require("../models/conversation");
 
-function arrayEquals(a, b) {
-  if (a.length === b.length) {
-    return a.every((val) => b.includes(val));
-  }
-}
-
 async function createConversation(req, res) {
   const newConversation = new ConversationModel({
     members: [req.body.senderId, req.body.receiverId],

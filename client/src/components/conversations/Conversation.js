@@ -1,6 +1,6 @@
 import axios from "axios";
 import "./conversation.css";
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function Conversation({
   conversation,
@@ -22,7 +22,6 @@ export default function Conversation({
       }
     };
     getUser();
-    console.log(onlineUsers);
   }, [conversation]);
 
   useEffect(() => {
@@ -32,7 +31,6 @@ export default function Conversation({
     setIsOnline(onlineUsers.some((user) => user.user_id === friendId));
   }, [onlineUsers, currentUser]);
 
-  console.log(isOnline);
   return (
     <li className="right-bar__online-friend">
       <div className="right-bar__profile-img-container">

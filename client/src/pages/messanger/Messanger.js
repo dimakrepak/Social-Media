@@ -1,6 +1,7 @@
 import axios from "axios";
 import "./messanger.css";
 import { useContext, useState, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import Navbar from "../../components/navbar/Navbar";
 import Message from "../../components/chat/Message";
@@ -9,6 +10,7 @@ import { io } from "socket.io-client";
 import Rightbar from "../../components/rightbar/Rightbar";
 
 export default function Messanger() {
+  const location = useLocation();
   const { currentUser } = useContext(AuthContext);
   const [conversations, setConversations] = useState([]);
   const [messages, setMessages] = useState([]);
@@ -32,6 +34,7 @@ export default function Messanger() {
       }
       getUser();
     }
+    console.log("location state", location.state);
   }, [currentChat]);
   async function getConversation() {
     try {
@@ -101,7 +104,6 @@ export default function Messanger() {
   }, [socket.current]);
   useEffect(() => {
     socket.current.on("getMessage", (message) => {
-      console.log(message);
       setArrivalMessage({
         sender: message.sender_id,
         text: message.text,
@@ -122,7 +124,7 @@ export default function Messanger() {
       setMessages((prev) => [...prev, arrivalMessage]);
     }
   }, [arrivalMessage, currentChat]);
-  console.log("render", renderConversation);
+
   return (
     <>
       <Navbar
