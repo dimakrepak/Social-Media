@@ -25,6 +25,8 @@ export default function Register() {
     e.preventDefault();
     if (account.password !== account.confirm_password) {
       console.log("password confirmed wrong");
+    } else if (account.password.length < 6) {
+      console.log("minimum 6 characters");
     } else {
       console.log("click");
       registerPost(account, dispatch);

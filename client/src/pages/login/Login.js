@@ -67,6 +67,9 @@ export default function Login() {
               )}
             </button>
             <span className="login-forget">Forgot password?</span>
+            {error && (
+              <span style={{ color: "red" }}>Invalid Information!</span>
+            )}
           </form>
           <button
             className="create-button"
