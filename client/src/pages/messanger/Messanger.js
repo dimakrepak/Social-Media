@@ -21,7 +21,7 @@ export default function Messanger() {
   const [currentChatReceiver, setCurrentChatReceiver] = useState(null);
   const [renderConversation, setRenderConversation] = useState(false);
   const messangerMode = useRef(true);
-  const socket = useRef(io("ws://socialmedia-dimkre.herokuapp.com/"));
+  const socket = useRef(io());
   const scrollRef = useRef();
 
   useEffect(() => {
