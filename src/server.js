@@ -11,7 +11,7 @@ const port = process.env.PORT || 8000;
 const server = http.createServer(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "https://socialmedia-dimkre.herokuapp.com/",
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });
