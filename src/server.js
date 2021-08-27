@@ -1,5 +1,4 @@
 const appRouter = require("./routes/app.routes");
-// const socketio = require('socket.io');
 const mongoose = require("mongoose");
 const express = require("express");
 const dotenv = require("dotenv");
@@ -9,6 +8,8 @@ const path = require("path");
 const http = require("http");
 const app = express();
 const port = process.env.PORT || 8000;
+const server = http.createServer(app);
+const io = require("socket.io")(server);
 dotenv.config();
 
 // express middleware
@@ -38,4 +39,6 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.listen(port, () => console.log(`application start at ${port}`));
+server.listen(port, () => console.log(`application start at ${port}`));
+
+module.exports = io;

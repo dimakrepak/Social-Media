@@ -1,8 +1,9 @@
-const io = require("socket.io")(process.env.PORT || 8900, {
-  cors: {
-    origin: "http://localhost:3000",
-  },
-});
+// const io = require("socket.io")(process.env.PORT || 8000, {
+//   cors: {
+//     origin: "http://localhost:3000",
+//   },
+// });
+const io = require("../src/server");
 let users = [];
 
 function add_user(user_id, socket_id) {
