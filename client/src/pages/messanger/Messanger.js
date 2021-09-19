@@ -35,8 +35,6 @@ export default function Messanger() {
       }
       getUser();
     }
-    console.log("current chat", currentChat);
-    console.log("receiver", receiver_id);
   }, [currentChat]);
 
   useEffect(() => {
@@ -94,7 +92,6 @@ export default function Messanger() {
     }
   }
   useEffect(() => {
-    // console.log(scrollRef);
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, newMessage]);
 

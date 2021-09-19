@@ -21,7 +21,6 @@ export default function Login() {
   };
   const handleLoginClick = (e) => {
     e.preventDefault();
-    console.log("click");
     loginPost({ ...formData }, dispatch);
     setFormData({
       ...formData,

@@ -14,7 +14,7 @@ export const AuthContextProvider = ({ children }) => {
         localStorage.setItem('currentUser', JSON.stringify(state.currentUser))
     }, [state.currentUser])
 
-    console.log(state.currentUser)
+    
     return (
         <AuthContext.Provider
             value={{

@@ -26,12 +26,12 @@ export default function ChatOnline({
     getFriends();
   }, []);
   useEffect(() => {
-    console.log(onlineUsers);
+    
     setOnlineFriends(
       friends.filter((friend) => onlineUsers.includes(friend._id))
     );
   }, [onlineUsers, friends]);
-  console.log("users from socket", onlineUsers);
+  
   return (
     <>
       {onlineFriends.map((friend) => (

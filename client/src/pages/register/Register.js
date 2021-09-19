@@ -28,7 +28,6 @@ export default function Register() {
     } else if (account.password.length < 6) {
       console.log("minimum 6 characters");
     } else {
-      console.log("click");
       registerPost(account, dispatch);
     }
   };
@@ -39,7 +38,7 @@ export default function Register() {
         src="https://picsum.photos/3000/2000"
         alt=""
       />
-      {console.log(account)}
+
       <div className="login__left"></div>
       <div className="login__right">
         <div className="login-box__register">

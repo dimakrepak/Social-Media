@@ -22,12 +22,10 @@ export default function Profile() {
   useEffect(() => {
     if (id === "me") {
       setUser(currentUser.user);
-      console.log("currentUser", currentUser.user);
     } else {
       const fetchUser = async () => {
         try {
           const res = await axios.get(`/api/user?id=${id}`);
-          console.log(res.data);
           setUser(res.data);
         } catch (err) {
           console.log(err);

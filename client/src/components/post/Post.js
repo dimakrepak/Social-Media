@@ -50,7 +50,7 @@ export default function Post({ post }) {
           },
         }
       );
-      console.log(`${post._id} liked`);
+     
     } catch (err) {
       console.log(err);
     }
@@ -62,7 +62,7 @@ export default function Post({ post }) {
           Auth: `Bearer ${currentUser.token}`,
         },
       });
-      console.log(`${post._id} deleted`);
+      
       window.location.reload();
     } catch (err) {
       console.log(err);

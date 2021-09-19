@@ -28,7 +28,7 @@ export default function Navbar({
   const fetchSearchUsers = async () => {
     try {
       const result = await axios.get(`/api/search/${searchValue}`);
-      console.log(result.data);
+    
       setUsers(result.data);
     } catch (err) {
       console.log(err);

@@ -28,7 +28,7 @@ export default function Feed({ id }) {
             },
           })
         : await axios.get(`/api/posts/user/${id}`);
-      console.log(res.data);
+      
       setLoading(false);
       setPosts(res.data);
     } catch (err) {
